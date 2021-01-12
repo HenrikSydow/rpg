@@ -1,5 +1,5 @@
-### Git-Bash: ####################################
+# Git-Bash:
 git clone https://github.com/HenrikSydow/rpg.git
 
-### IDE: #########################################
+# IDE:
 https://www.eclipse.org/downloads/
