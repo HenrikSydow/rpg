@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener{
 
-	boolean w = false, a = false, s = false, d = false;
+	boolean w = false, a = false, s = false, d = false, space = false;
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -31,6 +31,9 @@ public class KeyHandler implements KeyListener{
 				System.out.println("pressed d");
 				d = true;
 				break;
+			case KeyEvent.VK_SPACE:
+				space = true;
+				break;
 		}
 	}
 
@@ -48,6 +51,9 @@ public class KeyHandler implements KeyListener{
 				break;
 			case KeyEvent.VK_D:
 				d = false;
+				break;
+			case KeyEvent.VK_SPACE:
+				space = false;
 				break;
 		}
 	}
@@ -70,6 +76,10 @@ public class KeyHandler implements KeyListener{
 
 	public boolean isD() {
 		return d;
+	}
+	
+	public boolean isSpace() {
+		return space;
 	}
 	
 }
