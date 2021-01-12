@@ -11,7 +11,7 @@ public class Slime extends Enemy{
 
 	private BufferedImage sprite = ImageLoader.loadImgScaled("res\\slime_single.png", 3);
 	
-	private int velX = 1, velY = 1;
+	private int velX = 2, velY = 1;
 	
 	public Slime(int x, int y) {
 		super(x, y);
