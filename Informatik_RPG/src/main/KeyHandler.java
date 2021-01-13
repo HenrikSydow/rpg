@@ -16,19 +16,15 @@ public class KeyHandler implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		switch(e.getKeyCode()) {
 			case KeyEvent.VK_W:
-				System.out.println("pressed w");
 				w = true;
 				break;
 			case KeyEvent.VK_A:
-				System.out.println("pressed a");
 				a = true;
 				break;
 			case KeyEvent.VK_S:
-				System.out.println("pressed s");
 				s = true;
 				break;
 			case KeyEvent.VK_D:
-				System.out.println("pressed d");
 				d = true;
 				break;
 			case KeyEvent.VK_SPACE:

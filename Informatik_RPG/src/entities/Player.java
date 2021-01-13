@@ -1,22 +1,26 @@
 package entities;
 
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
+import java.awt.Toolkit;
 
-import main.ImageLoader;
+import main.ID;
 import main.KeyHandler;
 
 public class Player extends Entity{
 	
+	private ID id = ID.Player;
+	
 	private KeyHandler keyHandler;
 	
-	private BufferedImage spriteRight = ImageLoader.loadImgScaled("res\\character_right.png", 0.3);
-	private BufferedImage spriteLeft = ImageLoader.loadImgScaled("res\\character_left.png", 0.3);
-	private BufferedImage activeSprite = spriteRight;
+	private Toolkit toolkit = Toolkit.getDefaultToolkit();
+	private Image faceLeftImg = toolkit.createImage("res\\leftSlash.gif");
+	private Image faceRightImg = toolkit.createImage("res\\rightSlash.gif");
+	private Image activeImage = faceRightImg;
 	
 	public Player(int x, int y, KeyHandler keyHandler) {
-		super(x, y);
+		super(x, y, ID.Player);
 		this.keyHandler = keyHandler;
 		velX = 1;
 		velY = 1;
@@ -30,7 +34,7 @@ public class Player extends Entity{
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(activeSprite, x, y, null);
+		g.drawImage(activeImage, x, y, 150, 150, null);
 	}
 
 	@Override
@@ -46,12 +50,17 @@ public class Player extends Entity{
 			y += velY;
 		if(keyHandler.isA()) {
 			x -= velX;
-			activeSprite = spriteLeft;
+			activeImage = faceLeftImg;
 		}
 		if(keyHandler.isD()) {
 			x += velX;
-			activeSprite = spriteRight;
+			activeImage = faceRightImg;
 		}
 	}
 	
+	
+	// Getters & Setters:
+	public ID getId() {
+		return id;
+	}
 }

@@ -4,8 +4,9 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 
 import entities.Player;
 import entities.Slime;
@@ -19,6 +20,8 @@ public class Game extends Canvas implements Runnable{
 	
 	private Thread gameloopThread;
 	private boolean running = false;
+	
+	private Image background = Toolkit.getDefaultToolkit().createImage("res\\grassGround.png");
 	
 	public Game() {
 		init();
@@ -43,6 +46,7 @@ public class Game extends Canvas implements Runnable{
 		while(running) {
 			tick();
 			render();
+			
 			try {
 				Thread.sleep(clock);
 			} catch (InterruptedException e) {
@@ -89,6 +93,8 @@ public class Game extends Canvas implements Runnable{
 		g.setColor(Color.black);
 		g.drawString("use wasd to move", 550, 100);
 
+		g.drawImage(background, 0, 0, this);
+		
 		entityHandler.render(g);
 		//-------------------------------------------------------------------------------
 		
