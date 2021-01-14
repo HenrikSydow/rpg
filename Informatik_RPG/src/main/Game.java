@@ -8,8 +8,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 
+import entities.CombatDummy;
 import entities.Player;
-import entities.Slime;
 
 public class Game extends Canvas implements Runnable{
 
@@ -35,7 +35,8 @@ public class Game extends Canvas implements Runnable{
 		this.addKeyListener(keyHandler);
 		
 		entityHandler.addEntity(new Player(10, 10, keyHandler));
-		entityHandler.addEntity(new Slime(400, 300));
+		//entityHandler.addEntity(new Slime(400, 300));
+		entityHandler.addEntity(new CombatDummy(400, 200));
 	}
 	
 	// Gameloop:
@@ -89,11 +90,10 @@ public class Game extends Canvas implements Runnable{
 		//-- hier render methoden einfügen -----------------------------------------------
 		g.setColor(Color.white);
 		g.fillRect(0, 0, GAME_SIZE.width, GAME_SIZE.height);
-		
-		g.setColor(Color.black);
-		g.drawString("use wasd to move", 550, 100);
 
 		g.drawImage(background, 0, 0, this);
+		
+		g.drawString("use wasd to move", 550, 100);
 		
 		entityHandler.render(g);
 		//-------------------------------------------------------------------------------

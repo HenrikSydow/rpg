@@ -15,9 +15,18 @@ public class Player extends Entity{
 	private KeyHandler keyHandler;
 	
 	private Toolkit toolkit = Toolkit.getDefaultToolkit();
-	private Image faceLeftImg = toolkit.createImage("res\\leftSlash.gif");
-	private Image faceRightImg = toolkit.createImage("res\\rightSlash.gif");
-	private Image activeImage = faceRightImg;
+	
+	private Image walkLeftImg = toolkit.createImage("res\\player\\walkLeft.gif");
+	private Image walkRightImg = toolkit.createImage("res\\player\\walkRight.gif");
+	private Image walkDownImg = toolkit.createImage("res\\player\\walkDown.gif");
+	private Image walkUpImg = toolkit.createImage("res\\player\\walkUp.gif");
+
+	private Image standLeftImg = toolkit.createImage("res\\player\\standLeft.gif");
+	private Image standRightImg = toolkit.createImage("res\\player\\standRight.gif");
+	private Image standDownImg = toolkit.createImage("res\\player\\standDown.gif");
+	private Image standUpImg = toolkit.createImage("res\\player\\standUp.gif");
+	
+	private Image activeImage = standRightImg;
 	
 	public Player(int x, int y, KeyHandler keyHandler) {
 		super(x, y, ID.Player);
@@ -42,19 +51,40 @@ public class Player extends Entity{
 		return null;
 	}
 	
-	// Weitere Methoden:
+	// berechnet die neue Position und legt die aktive Animation fest:
 	private void movement() {
-		if(keyHandler.isW())
+		if(keyHandler.isW()) {
 			y -= velY;
-		if(keyHandler.isS())
+			activeImage = walkUpImg;
+		} else if(keyHandler.isS()) {
 			y += velY;
-		if(keyHandler.isA()) {
+			activeImage = walkDownImg;
+		} else if(keyHandler.isA()) {
 			x -= velX;
-			activeImage = faceLeftImg;
-		}
-		if(keyHandler.isD()) {
+			activeImage = walkLeftImg;
+		} else if(keyHandler.isD()) {
 			x += velX;
-			activeImage = faceRightImg;
+			activeImage = walkRightImg;
+		} else {
+			
+			String lastPressed = keyHandler.getLastPressed();
+			
+			if(lastPressed != null) {
+				switch(lastPressed) {
+					case "w":
+						activeImage = standUpImg;
+						break;
+					case "a":
+						activeImage = standLeftImg;
+						break;
+					case "s":
+						activeImage = standDownImg;
+						break;
+					case "d":
+						activeImage = standRightImg;
+						break;
+				}
+			}
 		}
 	}
 	
