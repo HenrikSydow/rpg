@@ -1,8 +1,10 @@
 package main;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.LinkedList;
 
+import entities.Enemy;
 import entities.Entity;
 
 public class EntityHandler {
@@ -27,6 +29,19 @@ public class EntityHandler {
 			entity.render(g);
 	}
 	
+	// Gibt einen Array zurück, der alle Entities beinhaltet, welche sich innerhalb des Rectangles area aufhalten.
+	// (Dafür werden die hitboxen / bounds verwendet)
+	public Enemy[] getInterceptingEnemies(Rectangle area) {
+		LinkedList<Entity> tempEntityList = new LinkedList<Entity>();
+		for(Entity tempEntity : entities) {
+			if(tempEntity.getBounds().intersects(area) && tempEntity.getId() != ID.Player && tempEntity.getId() == ID.Enemy)
+				tempEntityList.add(tempEntity);
+		}
+		Enemy[] output = new Enemy[tempEntityList.size()];
+		for(int i=0; i<tempEntityList.size(); i++)
+			output[i] = (Enemy) tempEntityList.get(i);
+		return output;
+	}
 	
 	
 	// Getters & Setters:

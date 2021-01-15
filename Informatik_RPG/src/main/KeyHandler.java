@@ -5,8 +5,7 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener{
 
-	private boolean w = false, a = false, s = false, d = false, space = false;
-	private String lastPressed;
+	private boolean w = false, a = false, s = false, d = false, enter = false, space = false;
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -18,19 +17,18 @@ public class KeyHandler implements KeyListener{
 		switch(e.getKeyCode()) {
 			case KeyEvent.VK_W:
 				w = true;
-				lastPressed = "w";
 				break;
 			case KeyEvent.VK_A:
 				a = true;
-				lastPressed = "a";
 				break;
 			case KeyEvent.VK_S:
 				s = true;
-				lastPressed = "s";
 				break;
 			case KeyEvent.VK_D:
 				d = true;
-				lastPressed = "d";
+				break;
+			case KeyEvent.VK_ENTER:
+				enter = true;
 				break;
 			case KeyEvent.VK_SPACE:
 				space = true;
@@ -52,6 +50,9 @@ public class KeyHandler implements KeyListener{
 				break;
 			case KeyEvent.VK_D:
 				d = false;
+				break;
+			case KeyEvent.VK_ENTER:
+				enter = false;
 				break;
 			case KeyEvent.VK_SPACE:
 				space = false;
@@ -79,12 +80,12 @@ public class KeyHandler implements KeyListener{
 		return d;
 	}
 	
-	public boolean isSpace() {
-		return space;
+	public boolean isEnter() {
+		return enter;
 	}
 	
-	public String getLastPressed() {
-		return lastPressed;
+	public boolean isSpace() {
+		return space;
 	}
 	
 }

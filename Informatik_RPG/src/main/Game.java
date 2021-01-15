@@ -34,15 +34,14 @@ public class Game extends Canvas implements Runnable{
 		new MainFrame("RPG", this);
 		this.addKeyListener(keyHandler);
 		
-		entityHandler.addEntity(new Player(10, 10, keyHandler));
-		//entityHandler.addEntity(new Slime(400, 300));
-		entityHandler.addEntity(new CombatDummy(400, 200));
+		entityHandler.addEntity(new Player(10, 10, entityHandler, keyHandler));
+		entityHandler.addEntity(new CombatDummy(400, 200, entityHandler));
 	}
 	
 	// Gameloop:
 	public void run() {
 		this.requestFocus();
-		int clock = 3;
+		int clock = 7;
 		
 		while(running) {
 			tick();

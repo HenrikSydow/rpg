@@ -3,6 +3,7 @@ package entities;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import main.EntityHandler;
 import main.ID;
 
 public abstract class Entity {
@@ -12,10 +13,12 @@ public abstract class Entity {
 	protected double velX = 0, velY = 0;
 	
 	protected ID id;
+	protected EntityHandler entityHandler;
 	
-	public Entity(int x, int y, ID id) {
+	public Entity(int x, int y, EntityHandler entityHandler, ID id) {
 		this.x = x;
 		this.y = y;
+		this.entityHandler = entityHandler;
 		this.id = id;
 	}
 	
