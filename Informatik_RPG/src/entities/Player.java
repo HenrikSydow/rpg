@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 
 import main.EntityHandler;
+import main.GifContainer;
 import main.ID;
 import main.KeyHandler;
 
@@ -15,24 +16,32 @@ public class Player extends Entity{
 	
 	private KeyHandler keyHandler;
 	
-	private Toolkit toolkit = Toolkit.getDefaultToolkit();
+	private static Toolkit toolkit = Toolkit.getDefaultToolkit();
 	
-	private Image walkLeftImg = toolkit.createImage("res\\player\\walkLeft.gif");
-	private Image walkRightImg = toolkit.createImage("res\\player\\walkRight.gif");
-	private Image walkDownImg = toolkit.createImage("res\\player\\walkDown.gif");
-	private Image walkUpImg = toolkit.createImage("res\\player\\walkUp.gif");
-
-	private Image standLeftImg = toolkit.createImage("res\\player\\standLeft.gif");
-	private Image standRightImg = toolkit.createImage("res\\player\\standRight.gif");
-	private Image standDownImg = toolkit.createImage("res\\player\\standDown.gif");
-	private Image standUpImg = toolkit.createImage("res\\player\\standUp.gif");
+	private static int walkingMs = 96, standingMs = 12, attackMs = 72;
 	
-	private Image swordSwingUpImg = toolkit.createImage("res\\player\\swordSwingUp.gif");
-	private Image swordSwingLeftImg = toolkit.createImage("res\\player\\swordSwingLeft.gif");
-	private Image swordSwingRightImg = toolkit.createImage("res\\player\\swordSwingRight.gif");
-	private Image swordSwingDownImg = toolkit.createImage("res\\player\\swordSwingDown.gif");
+	private static GifContainer[] idleAnimations = {
+		new GifContainer(toolkit.createImage("res\\player\\standLeft.gif"), standingMs),
+		new GifContainer(toolkit.createImage("res\\player\\standRight.gif"), standingMs),
+		new GifContainer(toolkit.createImage("res\\player\\standDown.gif"), standingMs),
+		new GifContainer(toolkit.createImage("res\\player\\standUp.gif"), standingMs)
+	};
 	
-	private Image activeImage = standRightImg;
+	private static GifContainer[] walkingAnimations = {
+		new GifContainer(toolkit.createImage("res\\player\\walkLeft.gif"), walkingMs),
+		new GifContainer(toolkit.createImage("res\\player\\walkRight.gif"), walkingMs),
+		new GifContainer(toolkit.createImage("res\\player\\walkDown.gif"), walkingMs),
+		new GifContainer(toolkit.createImage("res\\player\\walkUp.gif"), walkingMs)
+	};
+	
+	private static GifContainer[] attackingAnimations = {
+		new GifContainer(toolkit.createImage("res\\player\\swordSwingLeft.gif"), attackMs),
+		new GifContainer(toolkit.createImage("res\\player\\swordSwingRight.gif"), attackMs),
+		new GifContainer(toolkit.createImage("res\\player\\swordSwingDown.gif"), attackMs),
+		new GifContainer(toolkit.createImage("res\\player\\swordSwingUp.gif"), attackMs)
+	};
+		
+	private Image activeImage = idleAnimations[1].getGif();
 	
 	private int hp = 10, atk = 3, def = 5;
 	
@@ -49,7 +58,7 @@ public class Player extends Entity{
 		movement();
 		attack();
 	}
-
+	
 	@Override
 	public void render(Graphics g) {
 		g.drawImage(activeImage, x, y, 150, 150, null);
@@ -63,10 +72,10 @@ public class Player extends Entity{
 	// berechnet die neue Position und legt die aktive Animation fest:
 	private void attack() {
 		if(keyHandler.isEnter()) {
+			
 			Enemy[] defendingEnemies = entityHandler.getInterceptingEnemies(new Rectangle(x, y, 100, 100));
 			
 			for(Enemy tempEnemy : defendingEnemies) {
-				System.out.println("attacked / defending: " + tempEnemy);
 				tempEnemy.defend(atk);
 			}
 		}
@@ -76,26 +85,26 @@ public class Player extends Entity{
 	private void movement() {
 		if(keyHandler.isW()) {
 			y -= velY;
-			activeImage = walkUpImg;
+			activeImage = walkingAnimations[3].getGif();
 		} else if(keyHandler.isS()) {
 			y += velY;
-			activeImage = walkDownImg;
+			activeImage = walkingAnimations[2].getGif();
 		} else if(keyHandler.isA()) {
 			x -= velX;
-			activeImage = walkLeftImg;
+			activeImage = walkingAnimations[0].getGif();
 		} else if(keyHandler.isD()) {
 			x += velX;
-			activeImage = walkRightImg;
+			activeImage = walkingAnimations[1].getGif();
 		} else {
 			
-			if(activeImage == walkUpImg)
-				activeImage = standUpImg;
-			else if(activeImage == walkLeftImg)
-				activeImage = standLeftImg;
-			else if(activeImage == walkDownImg)
-				activeImage = standDownImg;
-			else if(activeImage == walkRightImg)
-				activeImage = standRightImg;
+			if(activeImage == walkingAnimations[3].getGif())
+				activeImage = idleAnimations[3].getGif();
+			else if(activeImage == walkingAnimations[0].getGif())
+				activeImage = idleAnimations[0].getGif();
+			else if(activeImage == walkingAnimations[2].getGif())
+				activeImage = idleAnimations[2].getGif();
+			else if(activeImage == walkingAnimations[1].getGif())
+				activeImage = idleAnimations[1].getGif();
 		}
 	}
 	

@@ -92,7 +92,7 @@ public class Game extends Canvas implements Runnable{
 
 		g.drawImage(background, 0, 0, this);
 		
-		g.drawString("use wasd to move", 550, 100);
+		g.drawString("use \"wasd\" to move, use \"enter\" to attack", 550, 100);
 		
 		entityHandler.render(g);
 		//-------------------------------------------------------------------------------
