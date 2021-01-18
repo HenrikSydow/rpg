@@ -41,27 +41,37 @@ public class Player extends Entity{
 		new GifContainer(toolkit.createImage("res\\player\\swordSwingUp.gif"), attackMs)
 	};
 		
-	private Image activeImage = idleAnimations[1].getGif();
+	private GifContainer activeImage;
 	
-	private int hp = 10, atk = 3, def = 5;
+	private boolean facingUp = false, facingDown = false, facingLeft = false, facingRight = false;
+	private boolean walking = false;
+	private boolean attacking = false;
+	
+	private int hp = 10, atk = 1, def = 5;
 	
 	public Player(int x, int y, EntityHandler entityHandler, KeyHandler keyHandler) {
 		super(x, y, entityHandler, ID.Player);
 		this.keyHandler = keyHandler;
 		velX = 1;
 		velY = 1;
+		facingRight = true;
+		activeImage = idleAnimations[1];
 	}
 
-	// Entity Methoden:
 	@Override
 	public void tick() {
-		movement();
-		attack();
+		prepareMovements();
+		if(attacking)
+			attack();
+		else if(walking)
+			walk();
+		else
+			standStill();
 	}
 	
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(activeImage, x, y, 150, 150, null);
+		g.drawImage(activeImage.getGif(), x, y, 150, 150, null);
 	}
 
 	@Override
@@ -71,41 +81,101 @@ public class Player extends Entity{
 	
 	// berechnet die neue Position und legt die aktive Animation fest:
 	private void attack() {
+		Enemy[] defendingEnemies = entityHandler.getInterceptingEnemies(new Rectangle(x, y, 100, 100));
+		
+		for(Enemy tempEnemy : defendingEnemies) {
+			tempEnemy.defend(atk);
+		}
+		
+		if(facingUp)
+			activeImage = attackingAnimations[3];
+		else if(facingDown)
+			activeImage = attackingAnimations[2];
+		else if(facingRight)
+			activeImage = attackingAnimations[1];
+		else
+			activeImage = attackingAnimations[0];
+		
+		attacking = false;
+	}
+	
+	//legt die Richting fest, in welche der Spieler schaut und bestimmt welche Aktionen ausgeführt werden sollen:
+	private void prepareMovements() {
 		if(keyHandler.isEnter()) {
-			
-			Enemy[] defendingEnemies = entityHandler.getInterceptingEnemies(new Rectangle(x, y, 100, 100));
-			
-			for(Enemy tempEnemy : defendingEnemies) {
-				tempEnemy.defend(atk);
-			}
+			attacking = true;
+		} else if(keyHandler.isS()) {
+			faceDown();
+			walking = true;
+		} else if(keyHandler.isA()) {
+			faceLeft();
+			walking = true;
+		} else if(keyHandler.isD()) {
+			faceRight();
+			walking = true;
+		} else if(keyHandler.isW()) {
+			faceUp();
+			walking = true;
+		} else {
+			walking = false;
 		}
 	}
 	
-	//berechnet die Bewegungen (x,y-Koordinaten) und legt die aktuelle Animation fest
-	private void movement() {
-		if(keyHandler.isW()) {
-			y -= velY;
-			activeImage = walkingAnimations[3].getGif();
-		} else if(keyHandler.isS()) {
-			y += velY;
-			activeImage = walkingAnimations[2].getGif();
-		} else if(keyHandler.isA()) {
-			x -= velX;
-			activeImage = walkingAnimations[0].getGif();
-		} else if(keyHandler.isD()) {
-			x += velX;
-			activeImage = walkingAnimations[1].getGif();
-		} else {
-			
-			if(activeImage == walkingAnimations[3].getGif())
-				activeImage = idleAnimations[3].getGif();
-			else if(activeImage == walkingAnimations[0].getGif())
-				activeImage = idleAnimations[0].getGif();
-			else if(activeImage == walkingAnimations[2].getGif())
-				activeImage = idleAnimations[2].getGif();
-			else if(activeImage == walkingAnimations[1].getGif())
-				activeImage = idleAnimations[1].getGif();
+	// Der Spieler bleibt stehen und schaut in die Richtung, welche von facingUp etc. angegeben ist (siehe faceLeft() & faceRight(), etc.)
+	private void standStill() {
+		if(facingUp)
+			activeImage = idleAnimations[3];
+		else if(facingLeft)
+			activeImage = idleAnimations[0];
+		else if(facingDown)
+			activeImage = idleAnimations[2];
+		else if(facingRight)
+			activeImage = idleAnimations[1];
+	}
+	
+	// bewegt den Spieler und lädt die passende Animation in die "activeImage"-Variable:
+	private void walk() {
+		if(facingRight) {
+			activeImage = walkingAnimations[1];
+			x+=velX;
+		} else if(facingLeft) {
+			activeImage = walkingAnimations[0];
+			x-=velX;
+		} else if(facingUp) {
+			activeImage = walkingAnimations[3];
+			y-=velY;
+		} else if(facingDown) {
+			activeImage = walkingAnimations[2];
+			y+=velY;
 		}
+	}
+	
+	// mit faceLeft etc. lässt sich die Richtung festlegen, in welche der Spieler schauen soll
+	private void faceLeft() {
+		facingLeft = true;
+		facingRight = false;
+		facingUp = false;
+		facingDown = false;
+	}
+	
+	private void faceRight() {
+		facingLeft = false;
+		facingRight = true;
+		facingUp = false;
+		facingDown = false;
+	}
+	
+	private void faceUp() {
+		facingLeft = false;
+		facingRight = false;
+		facingUp = true;
+		facingDown = false;
+	}
+	
+	private void faceDown() {
+		facingLeft = false;
+		facingRight = false;
+		facingUp = false;
+		facingDown = true;
 	}
 	
 	

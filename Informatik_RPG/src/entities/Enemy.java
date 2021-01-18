@@ -21,7 +21,8 @@ public abstract class Enemy extends Entity{
 	}
 	
 	public void tick() {
-		// überprüfe ob Enemy tot ist, wenn ja dann ändere die animation und lasse sie einmal durchlaufen
+		// überprüfe ob Enemy tot ist, wenn ja dann ändere die animation und lasse sie EINMAL durchlaufen --> hierfür wird die getLoopCount()-Methode
+		// des GifContainers benutzt.
 		if(hp <= 0) {
 			activeAnimation = animations[1];
 			if(!animations[1].isCounting())

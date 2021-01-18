@@ -29,6 +29,12 @@ public class GifContainer {
 			}
 		}, timeInMs * 10, timeInMs * 10);
 	}
+	
+	public void stopLoopCount() {
+		timer.cancel();
+		loopCount = 0;
+		counting = false;
+	}
 
 	
 	//Getters:
