@@ -120,8 +120,12 @@ public class Player extends Entity{
 			activeImage = attackingAnimations[0];
 		}
 		
-		for(Enemy tempEnemy : defendingEnemies) {
-			tempEnemy.defend(atk);
+		//Lässt den Spieler einmal pro gif-Animations-loop angreifen --> Geschwindigkeit an gif-dauer gekoppelt
+		if((!activeImage.isCounting()) || (activeImage.isCounting() && activeImage.getLoopCount() >= 1)) {
+			for(Enemy tempEnemy : defendingEnemies) {
+				tempEnemy.defend(atk);
+				activeImage.startLoopCount();
+			}
 		}
 		
 		attacking = false;
