@@ -1,5 +1,7 @@
 package entities;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 
@@ -23,6 +25,17 @@ public class CombatDummy extends Enemy{
 	@Override
 	public Rectangle getBounds() {
 		return new Rectangle(x, y, 140, 140);
+	}
+
+	@Override
+	public Rectangle getTopViewBounds() {
+		return new Rectangle(x+50, y+100, 40, 40);
+	}
+	
+	public void render(Graphics g) {
+		g.setColor(Color.red);
+		g.drawRect(x+50, y+100, 40, 40);
+		super.render(g);
 	}
 
 }

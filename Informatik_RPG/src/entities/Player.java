@@ -1,5 +1,6 @@
 package entities;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -71,12 +72,19 @@ public class Player extends Entity{
 	
 	@Override
 	public void render(Graphics g) {
+		g.setColor(Color.red);
+		g.drawRect(x+45, y+110, 60, 50);
 		g.drawImage(activeImage.getGif(), x, y, 150, 150, null);
 	}
 
 	@Override
 	public Rectangle getBounds() {
 		return new Rectangle(x, y, 150, 150);
+	}
+	
+	@Override
+	public Rectangle getTopViewBounds() {
+		return new Rectangle(x+45, y+110, 60, 50);
 	}
 	
 	// berechnet die neue Position und legt die aktive Animation fest:

@@ -29,7 +29,7 @@ public class EntityHandler {
 			entity.render(g);
 	}
 	
-	// Gibt einen Array zurück, der alle Entities beinhaltet, welche sich innerhalb des Rectangles area aufhalten.
+	// Gibt einen Array zurück, der alle Entities beinhaltet, welche sich innerhalb des Rectangles "area" aufhalten.
 	// (Dafür werden die hitboxen / bounds verwendet)
 	public Enemy[] getInterceptingEnemies(Rectangle area) {
 		LinkedList<Entity> tempEntityList = new LinkedList<Entity>();
@@ -42,7 +42,6 @@ public class EntityHandler {
 			output[i] = (Enemy) tempEntityList.get(i);
 		return output;
 	}
-	
 	
 	// Getters & Setters:
 
