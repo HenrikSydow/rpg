@@ -96,6 +96,9 @@ public class Game extends Canvas implements Runnable{
 		g.translate(-(player.getX() - GAME_SIZE.width/2 + 50), -(player.getY() - GAME_SIZE.height/2 + 100));
 		
 		g.drawImage(background, 0, 0, this);
+		g.drawImage(background, 0, background.getHeight(this), this);
+		g.drawImage(background, background.getWidth(this), 0, this);
+		g.drawImage(background, background.getWidth(this), background.getHeight(this), this);
 		
 		g.drawString("use \"wasd\" to move, use \"enter\" to attack", 550, 100);
 		

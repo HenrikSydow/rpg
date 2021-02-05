@@ -1,8 +1,8 @@
 package entities;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 
@@ -48,20 +48,29 @@ public class Player extends Entity{
 	private boolean walking = false;
 	private boolean attacking = false;
 	
+	private HpBar hpBar;
 	private int hp = 10, atk = 1, def = 5;
 	
 	public Player(int x, int y, EntityHandler entityHandler, KeyHandler keyHandler) {
 		super(x, y, entityHandler, ID.Player);
 		this.keyHandler = keyHandler;
+		
 		velX = 1;
 		velY = 1;
+		
 		facingRight = true;
 		activeImage = idleAnimations[1];
+		
+		hpBar = new HpBar(x, y, entityHandler, ID.HpBar);
+		hpBar.setBarColorGreen();
+		entityHandler.addEntity(hpBar);
 	}
 
 	@Override
 	public void tick() {
+		hpBar.updateHpBar(x, y, hp);
 		prepareMovements();
+		
 		if(attacking)
 			attack();
 		else if(walking)
@@ -89,20 +98,26 @@ public class Player extends Entity{
 	
 	// berechnet die neue Position und legt die aktive Animation fest:
 	private void attack() {
-		Enemy[] defendingEnemies = entityHandler.getInterceptingEnemies(new Rectangle(x, y, 100, 100));
+		Enemy[] defendingEnemies;
+		Dimension attackSize = new Dimension(50, 100);
+		
+		if(facingUp) {
+			defendingEnemies = entityHandler.getInterceptingEnemies(new Rectangle(x+50, y, attackSize.width, attackSize.height));
+			activeImage = attackingAnimations[3];
+		} else if(facingDown) {
+			defendingEnemies = entityHandler.getInterceptingEnemies(new Rectangle(x+50, y+attackSize.height, attackSize.width, attackSize.height));
+			activeImage = attackingAnimations[2];
+		} else if(facingRight) {
+			defendingEnemies = entityHandler.getInterceptingEnemies(new Rectangle(x+50, y+70, attackSize.height, attackSize.width));
+			activeImage = attackingAnimations[1];
+		} else {
+			defendingEnemies = entityHandler.getInterceptingEnemies(new Rectangle(x+100-attackSize.height, y+70, attackSize.height, attackSize.width));
+			activeImage = attackingAnimations[0];
+		}
 		
 		for(Enemy tempEnemy : defendingEnemies) {
 			tempEnemy.defend(atk);
 		}
-		
-		if(facingUp)
-			activeImage = attackingAnimations[3];
-		else if(facingDown)
-			activeImage = attackingAnimations[2];
-		else if(facingRight)
-			activeImage = attackingAnimations[1];
-		else
-			activeImage = attackingAnimations[0];
 		
 		attacking = false;
 	}

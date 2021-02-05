@@ -34,8 +34,10 @@ public class EntityHandler {
 	public Enemy[] getInterceptingEnemies(Rectangle area) {
 		LinkedList<Entity> tempEntityList = new LinkedList<Entity>();
 		for(Entity tempEntity : entities) {
-			if(tempEntity.getBounds().intersects(area) && tempEntity.getId() != ID.Player && tempEntity.getId() == ID.Enemy)
-				tempEntityList.add(tempEntity);
+			if(tempEntity.getBounds() != null) {
+				if(tempEntity.getBounds().intersects(area) && tempEntity.getId() != ID.Player && tempEntity.getId() == ID.Enemy)
+					tempEntityList.add(tempEntity);
+			}
 		}
 		Enemy[] output = new Enemy[tempEntityList.size()];
 		for(int i=0; i<tempEntityList.size(); i++)
