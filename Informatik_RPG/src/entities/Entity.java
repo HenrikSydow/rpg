@@ -30,6 +30,9 @@ public abstract class Entity {
 	
 	// gibt die größe der Entity zurück (collision-detection möglich --> Rectangle.intersects()?):
 	abstract public Rectangle getBounds();
+	
+	// gibt die Bounds der Entity aus der Vogelperspektive zurück
+	abstract public Rectangle getGroundBounds();
 
 	
 	

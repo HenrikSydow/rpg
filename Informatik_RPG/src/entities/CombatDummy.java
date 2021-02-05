@@ -1,5 +1,6 @@
 package entities;
 
+import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 
@@ -19,10 +20,20 @@ public class CombatDummy extends Enemy{
 		super(x, y, entityHandler, animations);
 		this.hp = 100;
 	}
+	
+	public void render(Graphics g) {
+		super.render(g);
+		g.drawRect(x+50, y+100, 40, 40);
+	}
 
 	@Override
 	public Rectangle getBounds() {
 		return new Rectangle(x, y, 140, 140);
+	}
+	
+	@Override
+	public Rectangle getGroundBounds() {
+		return new Rectangle(x, y, 40, 40);
 	}
 
 }

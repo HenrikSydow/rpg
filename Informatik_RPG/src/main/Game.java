@@ -23,6 +23,8 @@ public class Game extends Canvas implements Runnable{
 	
 	private Image background = Toolkit.getDefaultToolkit().createImage("res\\grassGround.png");
 	
+	private Player player = new Player(0, 0, entityHandler, keyHandler);
+	
 	public Game() {
 		init();
 		start();
@@ -34,7 +36,7 @@ public class Game extends Canvas implements Runnable{
 		new MainFrame("RPG", this);
 		this.addKeyListener(keyHandler);
 		
-		entityHandler.addEntity(new Player(10, 10, entityHandler, keyHandler));
+		entityHandler.addEntity(player);
 		entityHandler.addEntity(new CombatDummy(400, 200, entityHandler));
 	}
 	
@@ -89,7 +91,9 @@ public class Game extends Canvas implements Runnable{
 		//-- hier render methoden einfügen -----------------------------------------------
 		g.setColor(Color.white);
 		g.fillRect(0, 0, GAME_SIZE.width, GAME_SIZE.height);
-
+		
+		g.translate(-(player.getX() - GAME_SIZE.width/2 + 50), -(player.getY() - GAME_SIZE.height/2 + 100));
+		
 		g.drawImage(background, 0, 0, this);
 		
 		g.drawString("use \"wasd\" to move, use \"enter\" to attack", 550, 100);
