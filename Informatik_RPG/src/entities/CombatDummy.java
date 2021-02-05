@@ -21,21 +21,26 @@ public class CombatDummy extends Enemy{
 		super(x, y, entityHandler, animations);
 		this.hp = 100;
 	}
-
-	@Override
-	public Rectangle getBounds() {
-		return new Rectangle(x, y, 140, 140);
-	}
-
-	@Override
-	public Rectangle getTopViewBounds() {
-		return new Rectangle(x+50, y+100, 40, 40);
-	}
 	
 	public void render(Graphics g) {
 		g.setColor(Color.red);
 		g.drawRect(x+50, y+100, 40, 40);
 		super.render(g);
+	}
+
+	@Override
+	public Rectangle getBounds() {
+		return new Rectangle(x, y, 140, 140);
+	}
+	
+	@Override
+	public Rectangle getGroundBounds() {
+		return new Rectangle(x, y, 40, 40);
+	}
+
+	@Override
+	public Rectangle getTopViewBounds() {
+		return new Rectangle(x+50, y+100, 40, 40);
 	}
 
 }

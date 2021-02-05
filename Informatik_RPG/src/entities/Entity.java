@@ -34,6 +34,9 @@ public abstract class Entity {
 	// gibt den Standort der Entity aus der Vogelperspektive als Rectangle zurück, damit die Entity perspektivisch korrekt gerendert werden kann
 	abstract public Rectangle getTopViewBounds();
 
+	// gibt die Bounds der Entity aus der Vogelperspektive zurück
+	abstract public Rectangle getGroundBounds();
+
 	
 	
 	

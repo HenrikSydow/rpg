@@ -23,7 +23,7 @@ public class Game extends Canvas implements Runnable{
 	
 	private Image background = Toolkit.getDefaultToolkit().createImage("res\\grassGround.png");
 	
-	private Player player = new Player(10, 10, entityHandler, keyHandler);
+	private Player player = new Player(0, 0, entityHandler, keyHandler);
 	
 	public Game() {
 		init();

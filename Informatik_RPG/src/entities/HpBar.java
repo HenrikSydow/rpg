@@ -53,4 +53,9 @@ public class HpBar extends Entity{
 		return null;
 	}
 
+	@Override
+	public Rectangle getGroundBounds() {
+		return null;
+	}
+
 }

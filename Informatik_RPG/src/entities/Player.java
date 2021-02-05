@@ -96,6 +96,11 @@ public class Player extends Entity{
 		return new Rectangle(x+45, y+110, 60, 50);
 	}
 	
+	@Override
+	public Rectangle getGroundBounds() {
+		return new Rectangle(x+50, y+110, 45, 45);
+	}
+	
 	// berechnet die neue Position und legt die aktive Animation fest:
 	private void attack() {
 		Enemy[] defendingEnemies;
