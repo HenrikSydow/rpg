@@ -6,6 +6,7 @@ import java.util.LinkedList;
 
 import entities.Enemy;
 import entities.Entity;
+import entities.Player;
 
 public class EntityHandler {
 	
@@ -17,6 +18,8 @@ public class EntityHandler {
 	
 	public void removeEntity(Entity entity) {
 		entities.remove(entity);
+		if(entity.getId() == ID.Enemy)
+			((Player) (getEntityById(ID.Player)[0])).receiveExp(((Enemy) entity).getExp());
 	}
 	
 	public void tick() {
@@ -32,17 +35,18 @@ public class EntityHandler {
 	// Gibt einen Array zurück, der alle Entities beinhaltet, welche sich innerhalb des Rectangles "area" aufhalten.
 	// (Dafür werden die hitboxen / bounds verwendet)
 	public Enemy[] getInterceptingEnemies(Rectangle area) {
-		LinkedList<Entity> tempEntityList = new LinkedList<Entity>();
-		for(Entity tempEntity : entities) {
-			if(tempEntity.getBounds() != null) {
-				if(tempEntity.getBounds().intersects(area) && tempEntity.getId() != ID.Player && tempEntity.getId() == ID.Enemy)
-					tempEntityList.add(tempEntity);
-			}
-		}
-		Enemy[] output = new Enemy[tempEntityList.size()];
-		for(int i=0; i<tempEntityList.size(); i++)
-			output[i] = (Enemy) tempEntityList.get(i);
-		return output;
+		Entity[] enemies = getEntityById(ID.Enemy);
+		LinkedList<Entity> interceptingEnemies = new LinkedList<Entity>();
+		for(Entity enemy : enemies)
+			if(enemy.getBounds() != null && enemy.getBounds().intersects(area)) interceptingEnemies.add(enemy);
+		return interceptingEnemies.toArray(new Enemy[interceptingEnemies.size()]);
+	}
+	
+	public Entity[] getEntityById(ID id) {
+		LinkedList<Entity> filteredEntities = new LinkedList<Entity>();
+		for(Entity entity : entities)
+			if(entity.getId() == id) filteredEntities.add(entity);
+		return filteredEntities.toArray(new Entity[filteredEntities.size()]);
 	}
 	
 	// Getters & Setters:

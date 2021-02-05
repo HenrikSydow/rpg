@@ -20,6 +20,7 @@ public class CombatDummy extends Enemy{
 	public CombatDummy(int x, int y, EntityHandler entityHandler) {
 		super(x, y, entityHandler, animations);
 		this.hp = 100;
+		this.exp = 10;
 	}
 	
 	public void render(Graphics g) {

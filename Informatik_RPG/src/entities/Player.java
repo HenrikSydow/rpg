@@ -49,7 +49,7 @@ public class Player extends Entity{
 	private boolean attacking = false;
 	
 	private HpBar hpBar;
-	private int hp = 10, atk = 1, def = 5;
+	private int exp = 0, hp = 100, atk = 1, def = 5;
 	
 	public Player(int x, int y, EntityHandler entityHandler, KeyHandler keyHandler) {
 		super(x, y, entityHandler, ID.Player);
@@ -68,7 +68,7 @@ public class Player extends Entity{
 
 	@Override
 	public void tick() {
-		hpBar.updateHpBar(x, y, hp);
+		hpBar.updateHPBar(x, y, hp, exp);
 		prepareMovements();
 		
 		if(attacking)
@@ -206,6 +206,10 @@ public class Player extends Entity{
 		facingDown = true;
 	}
 	
+	//leveling:
+	public void receiveExp(int exp) {
+		this.exp += exp;
+	}
 	
 	// Getters & Setters:
 	public ID getId() {
