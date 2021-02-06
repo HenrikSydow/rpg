@@ -36,11 +36,6 @@ public class CombatDummy extends Enemy{
 	
 	@Override
 	public Rectangle getGroundBounds() {
-		return new Rectangle(x, y, 40, 40);
-	}
-
-	@Override
-	public Rectangle getTopViewBounds() {
 		return new Rectangle(x+50, y+100, 40, 40);
 	}
 

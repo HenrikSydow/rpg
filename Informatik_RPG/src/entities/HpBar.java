@@ -1,6 +1,7 @@
 package entities;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
@@ -11,9 +12,13 @@ public class HpBar extends Entity{
 
 	private int hp = 0;
 	private int exp = 0;
+	private int lvl = 0;
 	
 	private int positionOffset = 50-hp/2;
+	private int lvlOffset = positionOffset-18;
 	private int hpBarHeight = 10;
+	
+	private Font lvlFont = new Font("Arial", Font.PLAIN, 11);
 	
 	private Color barColor = Color.red;
 	
@@ -28,6 +33,15 @@ public class HpBar extends Entity{
 
 	@Override
 	public void render(Graphics g) {
+		//LVL:
+		if(lvl > 0) {
+			g.setFont(lvlFont);
+			g.setColor(Color.black);
+			g.fillOval(x+lvlOffset, y-5, 20, 20);
+			g.setColor(Color.white);
+			g.drawString(String.valueOf(lvl), x+lvlOffset+3, y+8);
+		}
+		
 		//HP:
 		if(hp > 0) {
 			g.setColor(Color.black);
@@ -41,6 +55,7 @@ public class HpBar extends Entity{
 			g.setColor(Color.cyan);
 			g.fillRect(x+positionOffset, y+hpBarHeight+1, exp, 2);
 		}
+		
 	}
 
 	public void updateHpBar(int x, int y, int hp) {
@@ -49,11 +64,12 @@ public class HpBar extends Entity{
 		this.hp = hp;
 	}
 	
-	public void updateHPBar(int x, int y, int hp, int exp) {
+	public void updateHPBar(int x, int y, int hp, int exp, int lvl) {
 		this.x = x;
 		this.y = y;
 		this.hp = hp;
 		this.exp = exp;
+		this.lvl = lvl;
 	}
 	
 	public void setBarColorGreen() {
@@ -66,13 +82,8 @@ public class HpBar extends Entity{
 	}
 
 	@Override
-	public Rectangle getTopViewBounds() {
-		return null;
-	}
-
-	@Override
 	public Rectangle getGroundBounds() {
-		return null;
+		return new Rectangle(x+positionOffset, y+120, 100, 10);
 	}
 
 }

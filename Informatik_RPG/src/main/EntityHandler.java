@@ -2,6 +2,8 @@ package main;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 
 import entities.Enemy;
@@ -28,6 +30,7 @@ public class EntityHandler {
 	}
 	
 	public void render(Graphics g) {
+		sortEntities();
 		for(Entity entity : entities)
 			entity.render(g);
 	}
@@ -47,6 +50,23 @@ public class EntityHandler {
 		for(Entity entity : entities)
 			if(entity.getId() == id) filteredEntities.add(entity);
 		return filteredEntities.toArray(new Entity[filteredEntities.size()]);
+	}
+	
+	
+	//Sortiert die liste aller Entities mit Hilfe der GroundBounds, damit sie in der richtigen Reihenfolge gerendert werden
+	private void sortEntities() {
+		Collections.sort(entities, new Comparator<Entity>() {
+			@Override
+			public int compare(Entity o1, Entity o2) {
+				if(o1.getGroundBounds() != null && o2.getGroundBounds() != null) {
+					Rectangle o1Bounds = o1.getGroundBounds();
+					Rectangle o2Bounds = o2.getGroundBounds();
+					return Integer.valueOf(o1Bounds.y+o1Bounds.height).compareTo(Integer.valueOf(o2Bounds.y+o2Bounds.height));
+				} else {
+					return 0;
+				}
+			}
+		});
 	}
 	
 	// Getters & Setters:

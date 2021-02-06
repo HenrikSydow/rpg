@@ -23,7 +23,7 @@ public class Game extends Canvas implements Runnable{
 	
 	private Image background = Toolkit.getDefaultToolkit().createImage("res\\grassGround.png");
 	
-	private Player player = new Player(0, 0, entityHandler, keyHandler);
+	private Player player = new Player(500, 500, entityHandler, keyHandler);
 	
 	public Game() {
 		init();
@@ -36,8 +36,10 @@ public class Game extends Canvas implements Runnable{
 		new MainFrame("RPG", this);
 		this.addKeyListener(keyHandler);
 		
-		entityHandler.addEntity(player);
 		entityHandler.addEntity(new CombatDummy(400, 200, entityHandler));
+		entityHandler.addEntity(player);
+		entityHandler.addEntity(new CombatDummy(200, 200, entityHandler));
+		entityHandler.addEntity(new CombatDummy(600, 200, entityHandler));
 	}
 	
 	// Gameloop:

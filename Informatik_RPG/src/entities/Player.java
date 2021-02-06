@@ -49,7 +49,7 @@ public class Player extends Entity{
 	private boolean attacking = false;
 	
 	private HpBar hpBar;
-	private int exp = 0, hp = 100, atk = 1, def = 5;
+	private int lvl = 1, exp = 0, hp = 25, atk = 5, def = 5;
 	
 	public Player(int x, int y, EntityHandler entityHandler, KeyHandler keyHandler) {
 		super(x, y, entityHandler, ID.Player);
@@ -68,7 +68,7 @@ public class Player extends Entity{
 
 	@Override
 	public void tick() {
-		hpBar.updateHPBar(x, y, hp, exp);
+		hpBar.updateHPBar(x, y, hp, exp, lvl);
 		prepareMovements();
 		
 		if(attacking)
@@ -92,13 +92,8 @@ public class Player extends Entity{
 	}
 	
 	@Override
-	public Rectangle getTopViewBounds() {
-		return new Rectangle(x+45, y+110, 60, 50);
-	}
-	
-	@Override
 	public Rectangle getGroundBounds() {
-		return new Rectangle(x+50, y+110, 45, 45);
+		return new Rectangle(x+45, y+110, 60, 50);
 	}
 	
 	// berechnet die neue Position und legt die aktive Animation fest:
@@ -129,6 +124,12 @@ public class Player extends Entity{
 		}
 		
 		attacking = false;
+	}
+	
+	public void defend(int atk) {
+		this.hp-= atk-def;
+		if(hp < 0)
+			this.hp = 0;
 	}
 	
 	//legt die Richting fest, in welche der Spieler schaut und bestimmt welche Aktionen ausgeführt werden sollen:
