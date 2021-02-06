@@ -21,6 +21,7 @@ public class GifContainer {
 	}
 	
 	public void startLoopCount() {
+		System.out.println("counting");
 		counting = true;
 		loopCount = 0;
 		timer.scheduleAtFixedRate(new TimerTask() {

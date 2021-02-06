@@ -25,12 +25,12 @@ public class EntityHandler {
 	}
 	
 	public void tick() {
+		sortEntities();
 		for(Entity entity : entities)
 			entity.tick();
 	}
 	
 	public void render(Graphics g) {
-		sortEntities();
 		for(Entity entity : entities)
 			entity.render(g);
 	}

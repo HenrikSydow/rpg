@@ -11,14 +11,15 @@ import main.GifContainer;
 public class CombatDummy extends Enemy{
 	
 	// initialisiere alle animationen (siehe Enemy-class für Reihenfolge)
-	private static Toolkit toolkit = Toolkit.getDefaultToolkit();
-	private static GifContainer[] animations = {
+	private Toolkit toolkit = Toolkit.getDefaultToolkit();
+	private GifContainer[] animations = {
 			new GifContainer(toolkit.createImage("res\\combat_dummy.gif"), 104),
 			new GifContainer(toolkit.createImage("res\\combat_dummy_death.gif"), 160)
 	};
 	
 	public CombatDummy(int x, int y, EntityHandler entityHandler) {
-		super(x, y, entityHandler, animations);
+		super(x, y, entityHandler);
+		super.setAnimations(animations);
 		this.hp = 100;
 		this.exp = 10;
 	}

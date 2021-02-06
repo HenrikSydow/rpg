@@ -16,34 +16,36 @@ public abstract class Enemy extends Entity{
 	
 	protected HpBar hpBar;
 	
-	public Enemy(int x, int y, EntityHandler entityHandler, GifContainer[] animations) {
+	public Enemy(int x, int y, EntityHandler entityHandler) {
 		super(x, y, entityHandler, ID.Enemy);
-		
-		this.animations = animations;
-		activeAnimation = animations[0];
 		
 		hpBar = new HpBar(x, y, entityHandler, ID.HpBar);
 		entityHandler.addEntity(hpBar);
 	}
 	
 	public void tick() {
+		hpBar.updateHpBar(x, y, hp);
+		
 		// überprüfe ob Enemy tot ist
 		if(hp <= 0) {
 			die();
 		}
-		
-		hpBar.updateHpBar(x, y, hp);
 	}
 	
 	public void render(Graphics g) {
-		g.setFont(new Font("Arial", Font.BOLD, 20));
-		g.drawImage(activeAnimation.getGif(), x, y, 140, 140, null);
+		if(animations != null)
+			g.drawImage(activeAnimation.getGif(), x, y, 140, 140, null);
 	}
 
 	public void defend(int atk) {
 		this.hp-= atk-def;
 		if(hp < 0)
 			this.hp = 0;
+	}
+	
+	protected void setAnimations(GifContainer[] animations) {
+		this.animations = animations;
+		activeAnimation = animations[0];
 	}
 	
 	public void die() {
