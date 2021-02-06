@@ -1,7 +1,5 @@
 package entities;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 
@@ -21,13 +19,7 @@ public class CombatDummy extends Enemy{
 		super(x, y, entityHandler);
 		super.setAnimations(animations);
 		this.hp = 100;
-		this.exp = 10;
-	}
-	
-	public void render(Graphics g) {
-		g.setColor(Color.red);
-		g.drawRect(x+50, y+100, 40, 40);
-		super.render(g);
+		this.exp = 50;
 	}
 
 	@Override

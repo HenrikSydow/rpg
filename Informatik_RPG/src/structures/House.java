@@ -1,4 +1,4 @@
-package entities;
+package structures;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -8,24 +8,17 @@ import java.awt.Toolkit;
 
 import main.EntityHandler;
 import main.ID;
+import structures.Structure;
 
-public class House extends Entity{
-
-	private Image houseImg = Toolkit.getDefaultToolkit().createImage("res\\scenery\\house2.png");
-	private Dimension size = new Dimension(500, 700);
+public class House extends Structure{
 	
 	public House(int x, int y, EntityHandler entityHandler) {
-		super(x, y, entityHandler, ID.Building);
+		super(x, y, new Dimension(500, 700), Toolkit.getDefaultToolkit().createImage("res\\scenery\\house2.png"), entityHandler);
 	}
 
 	@Override
 	public void tick() {
 		
-	}
-
-	@Override
-	public void render(Graphics g) {
-		g.drawImage(houseImg, x, y, size.width, size.height, null);
 	}
 
 	@Override

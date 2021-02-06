@@ -1,6 +1,5 @@
 package entities;
 
-import java.awt.Font;
 import java.awt.Graphics;
 
 import main.EntityHandler;
@@ -38,6 +37,7 @@ public abstract class Enemy extends Entity{
 	}
 
 	public void defend(int atk) {
+		hpBar.setVisible();
 		this.hp-= atk-def;
 		if(hp < 0)
 			this.hp = 0;

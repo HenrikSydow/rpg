@@ -50,6 +50,7 @@ public class Player extends Entity{
 	
 	private HpBar hpBar;
 	private int lvl = 1, exp = 0, hp = 25, atk = 8, def = 5;
+	private int expForLvlUp = 100;
 	
 	public Player(int x, int y, EntityHandler entityHandler, KeyHandler keyHandler) {
 		super(x, y, entityHandler, ID.Player);
@@ -62,11 +63,13 @@ public class Player extends Entity{
 		
 		hpBar = new HpBar(x, y, entityHandler, ID.HpBar);
 		hpBar.setBarColorGreen();
+		hpBar.setVisible();
 		entityHandler.addEntity(hpBar);
 	}
 
 	@Override
 	public void tick() {
+		lvlUp();
 		hpBar.updateHPBar(x, y, hp, exp, lvl);
 		prepareMovements();
 		
@@ -83,6 +86,8 @@ public class Player extends Entity{
 		g.setColor(Color.red);
 		g.drawRect(x+45, y+110, 60, 50);
 		g.drawImage(activeImage.getGif(), x, y, 150, 150, null);
+		g.setColor(Color.white);
+		g.drawString("X: " + x + " Y:" + y, x, y);
 	}
 
 	@Override
@@ -93,6 +98,18 @@ public class Player extends Entity{
 	@Override
 	public Rectangle getGroundBounds() {
 		return new Rectangle(x+45, y+110, 60, 50);
+	}
+	
+	private void lvlUp() {
+		if(exp >= expForLvlUp) {
+			lvl++;
+			hp+=3;
+			atk+=2;
+			def+=2;
+			exp-=expForLvlUp;
+			expForLvlUp+=2;
+			lvlUp();
+		}
 	}
 	
 	// berechnet die neue Position und legt die aktive Animation fest:

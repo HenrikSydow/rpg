@@ -4,14 +4,13 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 
 import entities.CombatDummy;
 import entities.Grass;
-import entities.House;
 import entities.Player;
+import structures.House;
+import structures.Tree;
 
 public class Game extends Canvas implements Runnable{
 
@@ -23,9 +22,7 @@ public class Game extends Canvas implements Runnable{
 	private Thread gameloopThread;
 	private boolean running = false;
 	
-	private Image background = Toolkit.getDefaultToolkit().createImage("res\\grassGround.png");
-	
-	private Player player = new Player(500, 500, entityHandler, keyHandler);
+	private Player player = new Player(450, 630, entityHandler, keyHandler);
 	
 	public Game() {
 		init();
@@ -40,16 +37,17 @@ public class Game extends Canvas implements Runnable{
 		
 		entityHandler.addEntity(new Grass(0, 0, 2000, 2000, entityHandler));
 		entityHandler.addEntity(new House(0,0, entityHandler));
-		entityHandler.addEntity(new CombatDummy(600, 200, entityHandler));
 		entityHandler.addEntity(player);
-		entityHandler.addEntity(new CombatDummy(800, 200, entityHandler));
-		entityHandler.addEntity(new CombatDummy(700, 400, entityHandler));
+		entityHandler.addEntity(new Tree(700, 600, entityHandler));
+		entityHandler.addEntity(new Tree(550, 550, entityHandler));
+		entityHandler.addEntity(new Tree(770, 680, entityHandler));
+		entityHandler.addEntity(new CombatDummy(615, 700, entityHandler));
 	}
 	
 	// Gameloop:
 	public void run() {
 		this.requestFocus();
-		int clock = 7;
+		int clock = 5;
 		
 		while(running) {
 			tick();
@@ -100,13 +98,6 @@ public class Game extends Canvas implements Runnable{
 
 		//Camera movement:
 		g.translate(-(player.getX() - GAME_SIZE.width/2 + 50), -(player.getY() - GAME_SIZE.height/2 + 100));
-		
-		/*
-		g.drawImage(background, 0, 0, this);
-		g.drawImage(background, 0, background.getHeight(this), this);
-		g.drawImage(background, background.getWidth(this), 0, this);
-		g.drawImage(background, background.getWidth(this), background.getHeight(this), this);
-		*/
 		
 		g.drawString("use \"wasd\" to move, use \"enter\" to attack", 550, 100);
 		

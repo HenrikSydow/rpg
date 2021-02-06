@@ -18,9 +18,11 @@ public class HpBar extends Entity{
 	private int lvlOffset = positionOffset-18;
 	private int hpBarHeight = 10;
 	
-	private Font lvlFont = new Font("Arial", Font.PLAIN, 11);
+	private Font lvlFont = new Font("Arial", Font.BOLD, 11);
 	
 	private Color barColor = Color.red;
+	
+	private boolean visible = false;
 	
 	public HpBar(int x, int y, EntityHandler entityHandler, ID id) {
 		super(x, y, entityHandler, id);
@@ -33,29 +35,34 @@ public class HpBar extends Entity{
 
 	@Override
 	public void render(Graphics g) {
-		//LVL:
-		if(lvl > 0) {
-			g.setFont(lvlFont);
-			g.setColor(Color.black);
-			g.fillOval(x+lvlOffset, y-5, 20, 20);
-			g.setColor(Color.white);
-			g.drawString(String.valueOf(lvl), x+lvlOffset+3, y+8);
+		if(visible) {
+			//HP:
+			if(hp > 0) {
+				g.setColor(Color.white);
+				g.fillRect(x+positionOffset, y, hp+2, hpBarHeight);
+				g.setColor(Color.black);
+				g.drawRect(x+positionOffset, y, hp+2, hpBarHeight);
+			}
+			g.setColor(barColor);
+			g.fillRect(x+1+positionOffset, y+1, hp, hpBarHeight-2);
+			
+			//EXP:
+			if(exp > 0) {
+				g.setColor(Color.cyan);
+				g.fillRect(x+positionOffset-3, y+hpBarHeight+1, exp, 2);
+				g.setColor(Color.black);
+				g.drawRect(x+positionOffset-3, y+hpBarHeight, exp, 4);
+			}
+			
+			//LVL:
+			if(lvl > 0) {
+				g.setFont(lvlFont);
+				g.setColor(Color.black);
+				g.fillOval(x+lvlOffset, y-5, 20, 20);
+				g.setColor(Color.white);
+				g.drawString(String.valueOf(lvl), x+lvlOffset+3, y+8);
+			}
 		}
-		
-		//HP:
-		if(hp > 0) {
-			g.setColor(Color.black);
-			g.drawRect(x+positionOffset, y, hp+2, hpBarHeight);
-		}
-		g.setColor(barColor);
-		g.fillRect(x+1+positionOffset, y+1, hp, hpBarHeight-2);
-		
-		//EXP:
-		if(exp > 0) {
-			g.setColor(Color.cyan);
-			g.fillRect(x+positionOffset, y+hpBarHeight+1, exp, 2);
-		}
-		
 	}
 
 	public void updateHpBar(int x, int y, int hp) {
@@ -74,6 +81,10 @@ public class HpBar extends Entity{
 	
 	public void setBarColorGreen() {
 		barColor = Color.green;
+	}
+	
+	public void setVisible() {
+		visible = true;
 	}
 	
 	@Override
