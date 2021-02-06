@@ -13,21 +13,27 @@ import entities.Player;
 public class EntityHandler {
 	
 	private LinkedList<Entity> entities = new LinkedList<Entity>();
+	private LinkedList<Entity> toRemove = new LinkedList<Entity>();
 	
 	public void addEntity(Entity entity) {
 		entities.add(entity);
 	}
 	
 	public void removeEntity(Entity entity) {
-		entities.remove(entity);
+		toRemove.add(entity);
 		if(entity.getId() == ID.Enemy)
 			((Player) (getEntityById(ID.Player)[0])).receiveExp(((Enemy) entity).getExp());
 	}
 	
 	public void tick() {
+		//sortiere die entities-liste nach renderreihenfolge:
 		sortEntities();
+		//ticke alle entities
 		for(Entity entity : entities)
 			entity.tick();
+		//entferne DANACH alle entities aus toRemove-list, um concurrent modification-error zu vermeiden
+		for(Entity entity : toRemove)
+			entities.remove(entity);
 	}
 	
 	public void render(Graphics g) {

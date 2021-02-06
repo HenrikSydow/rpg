@@ -3,5 +3,7 @@ package main;
 public enum ID {
 	Player(),
 	Enemy(),
-	HpBar()
+	HpBar(),
+	Ground(),
+	Building();
 }

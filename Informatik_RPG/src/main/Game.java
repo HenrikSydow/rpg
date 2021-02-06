@@ -9,6 +9,8 @@ import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 
 import entities.CombatDummy;
+import entities.Grass;
+import entities.House;
 import entities.Player;
 
 public class Game extends Canvas implements Runnable{
@@ -36,10 +38,12 @@ public class Game extends Canvas implements Runnable{
 		new MainFrame("RPG", this);
 		this.addKeyListener(keyHandler);
 		
-		entityHandler.addEntity(new CombatDummy(400, 200, entityHandler));
-		entityHandler.addEntity(player);
-		entityHandler.addEntity(new CombatDummy(200, 200, entityHandler));
+		entityHandler.addEntity(new Grass(0, 0, 2000, 2000, entityHandler));
+		entityHandler.addEntity(new House(0,0, entityHandler));
 		entityHandler.addEntity(new CombatDummy(600, 200, entityHandler));
+		entityHandler.addEntity(player);
+		entityHandler.addEntity(new CombatDummy(800, 200, entityHandler));
+		entityHandler.addEntity(new CombatDummy(700, 400, entityHandler));
 	}
 	
 	// Gameloop:
@@ -97,10 +101,12 @@ public class Game extends Canvas implements Runnable{
 		//Camera movement:
 		g.translate(-(player.getX() - GAME_SIZE.width/2 + 50), -(player.getY() - GAME_SIZE.height/2 + 100));
 		
+		/*
 		g.drawImage(background, 0, 0, this);
 		g.drawImage(background, 0, background.getHeight(this), this);
 		g.drawImage(background, background.getWidth(this), 0, this);
 		g.drawImage(background, background.getWidth(this), background.getHeight(this), this);
+		*/
 		
 		g.drawString("use \"wasd\" to move, use \"enter\" to attack", 550, 100);
 		

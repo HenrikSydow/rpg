@@ -49,14 +49,13 @@ public class Player extends Entity{
 	private boolean attacking = false;
 	
 	private HpBar hpBar;
-	private int lvl = 1, exp = 0, hp = 25, atk = 5, def = 5;
+	private int lvl = 1, exp = 0, hp = 25, atk = 8, def = 5;
 	
 	public Player(int x, int y, EntityHandler entityHandler, KeyHandler keyHandler) {
 		super(x, y, entityHandler, ID.Player);
 		this.keyHandler = keyHandler;
 		
-		velX = 1;
-		velY = 1;
+		velX = velY = 1;
 		
 		facingRight = true;
 		activeImage = idleAnimations[1];
