@@ -51,6 +51,11 @@ public class Player extends Entity{
 	private HpBar hpBar;
 	private int lvl = 1, exp = 0, hp = 25, atk = 8, def = 5;
 	private int expForLvlUp = 100;
+	private int walkingSpeed = 1, runningSpeed = 2;
+	
+	//----------------------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------------------------------------------
 	
 	public Player(int x, int y, EntityHandler entityHandler, KeyHandler keyHandler) {
 		super(x, y, entityHandler, ID.Player);
@@ -88,11 +93,13 @@ public class Player extends Entity{
 		g.drawImage(activeImage.getGif(), x, y, 150, 150, null);
 		g.setColor(Color.white);
 		g.drawString("X: " + x + " Y:" + y, x, y);
+		g.setColor(Color.orange);
+		g.drawRect(x+50, y+35, 50, 110);
 	}
 
 	@Override
 	public Rectangle getBounds() {
-		return new Rectangle(x, y, 150, 150);
+		return new Rectangle(x+50, y+35, 50, 110);
 	}
 	
 	@Override
@@ -150,6 +157,7 @@ public class Player extends Entity{
 	
 	//legt die Richting fest, in welche der Spieler schaut und bestimmt welche Aktionen ausgeführt werden sollen:
 	private void prepareMovements() {
+			
 		if(keyHandler.isEnter()) {
 			attacking = true;
 		} else if(keyHandler.isS()) {
@@ -181,9 +189,13 @@ public class Player extends Entity{
 			activeImage = idleAnimations[1];
 	}
 	
-	// bewegt den Spieler und lädt die passende Animation in die "activeImage"-Variable:
+	// bewegt den Spieler, legt die Geschwindigkeit fest und lädt die passende Animation in die "activeImage"-Variable:
 	private void walk() {
-
+		if(keyHandler.isShift())
+			velX = velY = runningSpeed;
+		else
+			velX = velY = walkingSpeed;
+		
 		if(facingRight) {
 			if(!incomingCollision(velX,0)) {
 				activeImage = walkingAnimations[1];

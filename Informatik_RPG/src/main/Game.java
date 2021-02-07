@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
 import entities.CombatDummy;
+import entities.Barel;
 import entities.Grass;
 import entities.Player;
 import structures.House;
@@ -38,10 +39,18 @@ public class Game extends Canvas implements Runnable{
 		entityHandler.addEntity(new Grass(0, 0, 2000, 2000, entityHandler));
 		entityHandler.addEntity(new House(0,0, entityHandler));
 		entityHandler.addEntity(player);
+		
+		entityHandler.addEntity(new Tree(470, 470, entityHandler));
+		entityHandler.addEntity(new Tree(550, 530, entityHandler));
+		entityHandler.addEntity(new Tree(600, 580, entityHandler));
 		entityHandler.addEntity(new Tree(700, 600, entityHandler));
-		entityHandler.addEntity(new Tree(550, 550, entityHandler));
 		entityHandler.addEntity(new Tree(770, 680, entityHandler));
+		
 		entityHandler.addEntity(new CombatDummy(615, 700, entityHandler));
+		entityHandler.addEntity(new CombatDummy(300, 750, entityHandler));
+		
+		entityHandler.addEntity(new Barel(0, 600, entityHandler));
+		entityHandler.addEntity(new Barel(40, 640, entityHandler));
 	}
 	
 	// Gameloop:
@@ -97,9 +106,7 @@ public class Game extends Canvas implements Runnable{
 		g.fillRect(0, 0, GAME_SIZE.width, GAME_SIZE.height);
 
 		//Camera movement:
-		g.translate(-(player.getX() - GAME_SIZE.width/2 + 50), -(player.getY() - GAME_SIZE.height/2 + 100));
-		
-		g.drawString("use \"wasd\" to move, use \"enter\" to attack", 550, 100);
+		g.translate(-(player.getX() - GAME_SIZE.width/2 + player.getBounds().width+25), -(player.getY() - GAME_SIZE.height/2 + player.getBounds().height));
 		
 		entityHandler.render(g);
 		//-------------------------------------------------------------------------------

@@ -1,5 +1,6 @@
 package entities;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import main.EntityHandler;
@@ -15,8 +16,12 @@ public abstract class Enemy extends Entity{
 	
 	protected HpBar hpBar;
 	
-	public Enemy(int x, int y, EntityHandler entityHandler) {
+	protected int width, height;
+	
+	public Enemy(int x, int y, int width, int height, EntityHandler entityHandler) {
 		super(x, y, entityHandler, ID.Enemy);
+		this.width = width;
+		this.height = height;
 		
 		hpBar = new HpBar(x, y, entityHandler, ID.HpBar);
 		entityHandler.addEntity(hpBar);
@@ -33,7 +38,15 @@ public abstract class Enemy extends Entity{
 	
 	public void render(Graphics g) {
 		if(animations != null)
-			g.drawImage(activeAnimation.getGif(), x, y, 140, 140, null);
+			g.drawImage(activeAnimation.getGif(), x, y, width, height, null);
+		if(getBounds() != null) {
+			g.setColor(Color.orange);
+			g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
+		}
+		if(getGroundBounds() != null) {
+			g.setColor(Color.red);
+			g.drawRect(getGroundBounds().x, getGroundBounds().y, getGroundBounds().width, getGroundBounds().height);
+		}
 	}
 
 	public void defend(int atk) {
