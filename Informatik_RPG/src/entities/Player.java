@@ -84,7 +84,7 @@ public class Player extends Entity{
 	@Override
 	public void render(Graphics g) {
 		g.setColor(Color.red);
-		g.drawRect(x+45, y+110, 60, 50);
+		g.drawRect(x+45, y+120, 60, 30);
 		g.drawImage(activeImage.getGif(), x, y, 150, 150, null);
 		g.setColor(Color.white);
 		g.drawString("X: " + x + " Y:" + y, x, y);
@@ -97,7 +97,7 @@ public class Player extends Entity{
 	
 	@Override
 	public Rectangle getGroundBounds() {
-		return new Rectangle(x+45, y+110, 60, 50);
+		return new Rectangle(x+45, y+120, 60, 30);
 	}
 	
 	private void lvlUp() {
@@ -183,19 +183,38 @@ public class Player extends Entity{
 	
 	// bewegt den Spieler und lädt die passende Animation in die "activeImage"-Variable:
 	private void walk() {
+
 		if(facingRight) {
-			activeImage = walkingAnimations[1];
-			x+=velX;
+			if(!incomingCollision(velX,0)) {
+				activeImage = walkingAnimations[1];
+				x+=velX;
+			}
 		} else if(facingLeft) {
-			activeImage = walkingAnimations[0];
-			x-=velX;
+			if(!incomingCollision(-velX,0)) {
+				activeImage = walkingAnimations[0];
+				x-=velX;
+			}
 		} else if(facingUp) {
-			activeImage = walkingAnimations[3];
-			y-=velY;
+			if(!incomingCollision(0,-velY)) {
+				activeImage = walkingAnimations[3];
+				y-=velY;
+			}
 		} else if(facingDown) {
-			activeImage = walkingAnimations[2];
-			y+=velY;
+			if(!incomingCollision(0, velY)) {
+				activeImage = walkingAnimations[2];
+				y+=velY;
+			}
 		}
+	}
+	
+	//gibt true zurück, wenn der Spieler bei nächster bewegung mit einer entity (groundbounds.width/height > 0) kollidieren würde
+	private boolean incomingCollision(double xVel, double yVel) {
+		Rectangle newGroundBounds = new Rectangle((int)(this.getGroundBounds().x+xVel), (int)(this.getGroundBounds().y+yVel), this.getGroundBounds().width, this.getGroundBounds().height);
+		for(Entity entity : entityHandler.getEntities()) {
+			if(entity.getGroundBounds() != null && entity.id != ID.Player && entity.getGroundBounds().intersects(newGroundBounds)) 
+				return true;
+		}
+		return false;
 	}
 	
 	// mit faceLeft etc. lässt sich die Richtung festlegen, in welche der Spieler schauen soll
