@@ -39,6 +39,7 @@ public abstract class Enemy extends Entity{
 	public void render(Graphics g) {
 		if(animations != null)
 			g.drawImage(activeAnimation.getGif(), x, y, width, height, null);
+		/*
 		if(getBounds() != null) {
 			g.setColor(Color.orange);
 			g.drawRect(getBounds().x, getBounds().y, getBounds().width, getBounds().height);
@@ -47,6 +48,7 @@ public abstract class Enemy extends Entity{
 			g.setColor(Color.red);
 			g.drawRect(getGroundBounds().x, getGroundBounds().y, getGroundBounds().width, getGroundBounds().height);
 		}
+		*/
 	}
 
 	public void defend(int atk) {

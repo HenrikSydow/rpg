@@ -7,7 +7,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
 import entities.CombatDummy;
-import entities.Barel;
+import entities.Barrel;
 import entities.Grass;
 import entities.Player;
 import structures.House;
@@ -49,8 +49,8 @@ public class Game extends Canvas implements Runnable{
 		entityHandler.addEntity(new CombatDummy(615, 700, entityHandler));
 		entityHandler.addEntity(new CombatDummy(300, 750, entityHandler));
 		
-		entityHandler.addEntity(new Barel(0, 600, entityHandler));
-		entityHandler.addEntity(new Barel(40, 640, entityHandler));
+		entityHandler.addEntity(new Barrel(0, 600, entityHandler));
+		entityHandler.addEntity(new Barrel(40, 640, entityHandler));
 	}
 	
 	// Gameloop:

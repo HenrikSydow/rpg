@@ -6,15 +6,15 @@ import java.awt.Toolkit;
 import main.EntityHandler;
 import main.GifContainer;
 
-public class Barel extends Enemy{
+public class Barrel extends Enemy{
 	
 	private Toolkit toolkit = Toolkit.getDefaultToolkit();
 	private GifContainer[] animations = {
-			new GifContainer(toolkit.createImage("res\\enemies\\barel.gif"), 1),
-			new GifContainer(toolkit.createImage("res\\enemies\\barelBreaking.gif"), 60)
+			new GifContainer(toolkit.createImage("res\\enemies\\barrel.gif"), 1),
+			new GifContainer(toolkit.createImage("res\\enemies\\barrelBreaking.gif"), 60)
 	};
 	
-	public Barel(int x, int y, EntityHandler entityHandler) {
+	public Barrel(int x, int y, EntityHandler entityHandler) {
 		super(x, y, 200, 200, entityHandler);
 		this.setAnimations(animations);
 		this.hp = 1;

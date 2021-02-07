@@ -88,13 +88,16 @@ public class Player extends Entity{
 	
 	@Override
 	public void render(Graphics g) {
-		g.setColor(Color.red);
-		g.drawRect(x+45, y+120, 60, 30);
 		g.drawImage(activeImage.getGif(), x, y, 150, 150, null);
+		
+		/*
 		g.setColor(Color.white);
 		g.drawString("X: " + x + " Y:" + y, x, y);
 		g.setColor(Color.orange);
 		g.drawRect(x+50, y+35, 50, 110);
+		g.setColor(Color.red);
+		g.drawRect(x+45, y+120, 60, 30);
+		*/
 	}
 
 	@Override
