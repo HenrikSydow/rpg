@@ -49,7 +49,7 @@ public class Player extends Entity{
 	private boolean attacking = false;
 	
 	private HpBar hpBar;
-	private int lvl = 1, exp = 0, hp = 25, atk = 8, def = 5;
+	private int lvl = 1, exp = 0, hp = 25, atk = 5, def = 5;
 	private int expForLvlUp = 100;
 	private int walkingSpeed = 1, runningSpeed = 2;
 	
@@ -125,19 +125,19 @@ public class Player extends Entity{
 	// berechnet die neue Position und legt die aktive Animation fest:
 	private void attack() {
 		Enemy[] defendingEnemies;
-		Dimension attackSize = new Dimension(50, 100);
+		Dimension attackSize = new Dimension(30, 80);
 		
 		if(facingUp) {
-			defendingEnemies = entityHandler.getInterceptingEnemies(new Rectangle(x+50, y, attackSize.width, attackSize.height));
+			defendingEnemies = entityHandler.getInterceptingEnemies(new Rectangle(x+60, y+30, attackSize.width, attackSize.height));
 			activeImage = attackingAnimations[3];
 		} else if(facingDown) {
-			defendingEnemies = entityHandler.getInterceptingEnemies(new Rectangle(x+50, y+attackSize.height, attackSize.width, attackSize.height));
+			defendingEnemies = entityHandler.getInterceptingEnemies(new Rectangle(x+60, y+attackSize.height, attackSize.width, attackSize.height));
 			activeImage = attackingAnimations[2];
 		} else if(facingRight) {
-			defendingEnemies = entityHandler.getInterceptingEnemies(new Rectangle(x+50, y+70, attackSize.height, attackSize.width));
+			defendingEnemies = entityHandler.getInterceptingEnemies(new Rectangle(x+70, y+70, attackSize.height, attackSize.width));
 			activeImage = attackingAnimations[1];
 		} else {
-			defendingEnemies = entityHandler.getInterceptingEnemies(new Rectangle(x+100-attackSize.height, y+70, attackSize.height, attackSize.width));
+			defendingEnemies = entityHandler.getInterceptingEnemies(new Rectangle(x, y+70, attackSize.height, attackSize.width));
 			activeImage = attackingAnimations[0];
 		}
 		
