@@ -10,16 +10,19 @@ public class CombatDummy extends Enemy{
 	
 	// initialisiere alle animationen (siehe Enemy-class für Reihenfolge)
 	private Toolkit toolkit = Toolkit.getDefaultToolkit();
-	private GifContainer[] animations = {
-			new GifContainer(toolkit.createImage("res\\enemies\\combatDummy.gif"), 104),
-			new GifContainer(toolkit.createImage("res\\enemies\\combatDummyDeath.gif"), 160)
+	
+	private GifContainer[][] animations = {
+			{new GifContainer(toolkit.createImage("res\\enemies\\combatDummy.gif"), 104)},
+			{new GifContainer(toolkit.createImage("res\\enemies\\combatDummyDeath.gif"), 160)},
+			{},
+			{}
 	};
 	
 	public CombatDummy(int x, int y, EntityHandler entityHandler) {
 		super(x, y, 140, 140, entityHandler);
 		super.setAnimations(animations);
 		this.hp = 100;
-		this.exp = 50;
+		this.exp = 30;
 	}
 
 	@Override

@@ -1,6 +1,5 @@
 package entities;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -94,15 +93,15 @@ public class Player extends Entity{
 		g.setColor(Color.white);
 		g.drawString("X: " + x + " Y:" + y, x, y);
 		g.setColor(Color.orange);
-		g.drawRect(x+50, y+35, 50, 110);
+		g.drawRect(x+50, y+70, 50, 75);
 		g.setColor(Color.red);
-		g.drawRect(x+45, y+120, 60, 30);
-		*/
+		g.drawRect(x+45, y+120, 60, 30);*/
+		
 	}
 
 	@Override
 	public Rectangle getBounds() {
-		return new Rectangle(x+50, y+35, 50, 110);
+		return new Rectangle(x+50, y+70, 50, 75);
 	}
 	
 	@Override

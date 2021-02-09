@@ -9,9 +9,11 @@ import main.GifContainer;
 public class Barrel extends Enemy{
 	
 	private Toolkit toolkit = Toolkit.getDefaultToolkit();
-	private GifContainer[] animations = {
-			new GifContainer(toolkit.createImage("res\\enemies\\barrel.gif"), 1),
-			new GifContainer(toolkit.createImage("res\\enemies\\barrelBreaking.gif"), 60)
+	private GifContainer[][] animations = {
+			{new GifContainer(toolkit.createImage("res\\enemies\\barrel.gif"), 1)},
+			{new GifContainer(toolkit.createImage("res\\enemies\\barrelBreaking.gif"), 60)},
+			{},
+			{}
 	};
 	
 	public Barrel(int x, int y, EntityHandler entityHandler) {

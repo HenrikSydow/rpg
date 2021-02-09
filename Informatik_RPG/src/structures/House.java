@@ -1,14 +1,10 @@
 package structures;
 
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 
 import main.EntityHandler;
-import main.ID;
-import structures.Structure;
 
 public class House extends Structure{
 	
