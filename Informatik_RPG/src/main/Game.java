@@ -6,8 +6,9 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
-import entities.CombatDummy;
+import entities.Bandit;
 import entities.Barrel;
+import entities.CombatDummy;
 import entities.Grass;
 import entities.Player;
 import structures.House;
@@ -52,6 +53,8 @@ public class Game extends Canvas implements Runnable{
 		entityHandler.addEntity(new Barrel(0, 600, entityHandler));
 		entityHandler.addEntity(new Barrel(40, 640, entityHandler));
 		entityHandler.addEntity(new Barrel(40, 900, entityHandler));
+		
+		entityHandler.addEntity(new Bandit(100, 1000, entityHandler));
 	}
 	
 	// Gameloop:

@@ -1,6 +1,5 @@
 package entities;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 import main.EntityHandler;
@@ -11,7 +10,7 @@ public abstract class Enemy extends Entity{
 
 	protected int exp = 0, hp = 0, atk = 0, def = 0;
 	
-	protected GifContainer[] animations; // 0:idle, 1:death;
+	protected GifContainer[] animations; // 0:idle, 1:death, 2:walkleft, 3:walkright, 4:walkup, 5:walkup;
 	protected GifContainer activeAnimation;
 	
 	protected HpBar hpBar;
