@@ -18,11 +18,6 @@ public class House extends Structure{
 	}
 
 	@Override
-	public Rectangle getBounds() {
-		return null;
-	}
-
-	@Override
 	public Rectangle getGroundBounds() {
 		return new Rectangle(x+size.width/20, y+size.height/3, size.width-size.width/10, size.height-size.height/3);
 	}

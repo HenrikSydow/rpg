@@ -11,8 +11,10 @@ import entities.Barrel;
 import entities.CombatDummy;
 import entities.Grass;
 import entities.Player;
+import structures.Bench;
 import structures.House;
 import structures.Tree;
+import structures.Tree2;
 
 public class Game extends Canvas implements Runnable{
 
@@ -54,6 +56,10 @@ public class Game extends Canvas implements Runnable{
 		entityHandler.addEntity(new Barrel(40, 900, entityHandler));
 		
 		entityHandler.addEntity(new Bandit(500, 800, entityHandler));
+		entityHandler.addEntity(new Bandit(1000, 1000, entityHandler));
+		
+		entityHandler.addEntity(new Tree2(400, 850, entityHandler));
+		entityHandler.addEntity(new Bench(320, 660, entityHandler));
 	}
 	
 	// Gameloop:

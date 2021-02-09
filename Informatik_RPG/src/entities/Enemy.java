@@ -58,8 +58,8 @@ public abstract class Enemy extends Entity{
 		else if (facingLeft) activeAnimation = attackAnimations[2];
 		else if (facingRight) activeAnimation = attackAnimations[3];
 		
-		if((!activeAnimation.isCounting()) || (activeAnimation.isCounting() && activeAnimation.getLoopCount() >= 1) && hp>0) {
-			player.defend(atk);
+		if((!activeAnimation.isCounting()) || (activeAnimation.isCounting() && activeAnimation.getLoopCount() >= 1)) {
+			if(hp>0)player.defend(atk);
 			activeAnimation.startLoopCount();
 		}
 	}

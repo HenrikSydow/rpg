@@ -3,6 +3,7 @@ package structures;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Rectangle;
 
 import entities.Entity;
 import main.EntityHandler;
@@ -17,6 +18,10 @@ public abstract class Structure extends Entity{
 		super(x, y, entityHandler, ID.Structure);
 		this.structureImage = image;
 		this.size = size;
+	}
+	
+	public Rectangle getBounds() {
+		return null;
 	}
 	
 	public void render(Graphics g) {

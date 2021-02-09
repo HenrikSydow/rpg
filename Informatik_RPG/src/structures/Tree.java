@@ -5,7 +5,6 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 
 import main.EntityHandler;
-import structures.Structure;
 
 public class Tree extends Structure{
 	
@@ -16,11 +15,6 @@ public class Tree extends Structure{
 	@Override
 	public void tick() {
 		
-	}
-
-	@Override
-	public Rectangle getBounds() {
-		return null;
 	}
 
 	@Override
