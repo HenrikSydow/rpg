@@ -35,4 +35,9 @@ public class CombatDummy extends Enemy{
 		return new Rectangle(x+50, y+100, 40, 40);
 	}
 
+	@Override
+	Rectangle viewDistance() {
+		return null;
+	}
+
 }

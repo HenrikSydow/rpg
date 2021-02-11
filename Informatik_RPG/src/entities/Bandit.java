@@ -1,5 +1,7 @@
 package entities;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 
@@ -69,6 +71,11 @@ public class Bandit extends Enemy {
 	@Override
 	public Rectangle getGroundBounds() {
 		return new Rectangle(x+45, y+110, 50, 25);
+	}
+
+	@Override
+	Rectangle viewDistance() {
+		return new Rectangle(x-160, y-150, 500, 500);
 	}
 
 }

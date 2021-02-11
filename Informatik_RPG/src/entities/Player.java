@@ -49,7 +49,7 @@ public class Player extends Entity{
 	private boolean attacking = false;
 	
 	private HpBar hpBar;
-	private int lvl = 1, exp = 0, hp = 25, atk = 5, def = 5;
+	private int lvl = 1, exp = 0, hp = 35, atk = 5, def = 5;
 	private int expForLvlUp = 100;
 	private int walkingSpeed = 1, runningSpeed = 2;
 	

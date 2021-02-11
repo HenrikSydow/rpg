@@ -32,4 +32,9 @@ public class Barrel extends Enemy{
 		return new Rectangle(x+85, y+120, 42, 25);
 	}
 
+	@Override
+	Rectangle viewDistance() {
+		return null;
+	}
+
 }

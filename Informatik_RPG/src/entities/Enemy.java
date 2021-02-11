@@ -51,6 +51,9 @@ public abstract class Enemy extends Entity{
 			g.drawImage(activeAnimation.getGif(), x, y, width, height, null);
 	}
 	
+	//gibt an wie weit der Enemy schauen kann...
+	abstract Rectangle viewDistance();
+	
 	protected void attack() {
 		Player player = (Player) entityHandler.getEntityById(ID.Player)[0];
 		if(facingDown) activeAnimation = attackAnimations[0];
@@ -117,14 +120,16 @@ public abstract class Enemy extends Entity{
 	//lässt den Enemy in die Richtung des Spielers laufen.
 	protected void trackPlayer() {
 		Player player = (Player) entityHandler.getEntityById(ID.Player)[0];
-		int distanceX = this.x - player.getX();
-		int distanceY = this.y - player.getY();
-		if(Math.abs(distanceX) > Math.abs(distanceY)) {
-			if(distanceX < 0) walkRight();
-			else if(distanceX > 0) walkLeft();
-		} else {
-			if(distanceY < 0) walkDown();
-			else if(distanceY > 0) walkUp();
+		if(this.viewDistance() != null && player.getGroundBounds().intersects(this.viewDistance())) {
+			int distanceX = this.x - player.getX();
+			int distanceY = this.y - player.getY();
+			if(Math.abs(distanceX) > Math.abs(distanceY)) {
+				if(distanceX < 0) walkRight();
+				else if(distanceX > 0) walkLeft();
+			} else {
+				if(distanceY < 0) walkDown();
+				else if(distanceY > 0) walkUp();
+			}
 		}
 	}
 	
