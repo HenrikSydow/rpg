@@ -15,6 +15,7 @@ import structures.Bench;
 import structures.House;
 import structures.Tree;
 import structures.Tree2;
+import ui.Inventory;
 
 public class Game extends Canvas implements Runnable{
 
@@ -24,9 +25,11 @@ public class Game extends Canvas implements Runnable{
 	private EntityHandler entityHandler = new EntityHandler();
 	
 	private Thread gameloopThread;
-	private boolean running = false;
+	private boolean running = false, paused = false;
 	
 	private Player player = new Player(450, 630, entityHandler, keyHandler);
+
+	private Inventory inventory = new Inventory(player, this, keyHandler);
 	
 	public Game() {
 		init();
@@ -98,7 +101,8 @@ public class Game extends Canvas implements Runnable{
 	
 	// Updated das Spiel / alle Elemente
 	private void tick() {
-		entityHandler.tick();
+		if(!paused) entityHandler.tick();
+		inventory.tick();
 	}
 	
 	// Zeichnet alle Elemente auf den Canvas
@@ -118,10 +122,25 @@ public class Game extends Canvas implements Runnable{
 		g.translate(-(player.getX() - GAME_SIZE.width/2 + player.getBounds().width+25), -(player.getY() - GAME_SIZE.height/2 + player.getBounds().height));
 		
 		entityHandler.render(g);
+		
+		//Camera movement (g.translate) relativieren, damit alle folgenden overlays (ui: inventory etc) mittig gerendert werden:
+		g.translate((player.getX() - GAME_SIZE.width/2 + player.getBounds().width+25), (player.getY() - GAME_SIZE.height/2 + player.getBounds().height));
+		
+		//wenn pausiert, spiel "ausgrauen"
+		if(paused) {
+			g.setColor(new Color(0,0,0,100));
+			g.fillRect(0, 0, GAME_SIZE.width, GAME_SIZE.height);
+		}
+
+		inventory.render(g);
 		//-------------------------------------------------------------------------------
 		
 		bs.show();
 		g.dispose();
+	}
+	
+	public void setPaused(boolean paused){
+		this.paused = paused;
 	}
 	
 	// Entry-point / Anfang des Programms:

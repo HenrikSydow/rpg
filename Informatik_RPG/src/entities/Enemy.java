@@ -44,6 +44,8 @@ public abstract class Enemy extends Entity{
 		if(hp <= 0) {
 			die();
 		}
+		
+		stayStill();
 	}
 	
 	public void render(Graphics g) {
@@ -115,6 +117,13 @@ public abstract class Enemy extends Entity{
 			activeAnimation = walkingAnimations[3];
 			x+=velX;
 		}
+	}
+	
+	protected void stayStill() {
+		if(facingDown) activeAnimation = idleAnimations[0];
+		else if (facingUp) activeAnimation = idleAnimations[1];
+		else if (facingLeft) activeAnimation = idleAnimations[2];
+		else if (facingRight) activeAnimation = idleAnimations[3];
 	}
 	
 	//lässt den Enemy in die Richtung des Spielers laufen.
