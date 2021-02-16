@@ -48,7 +48,7 @@ public class Player extends Entity{
 	private boolean attacking = false;
 	
 	private HpBar hpBar;
-	private int lvl = 1, exp = 0, hp = 35, atk = 5, def = 5;
+	private int lvl = 1, exp = 0, hp = 35, atk = 7, def = 5;
 	private int expForLvlUp = 100;
 	private int walkingSpeed = 1, runningSpeed = 2;
 	
@@ -88,15 +88,6 @@ public class Player extends Entity{
 	@Override
 	public void render(Graphics g) {
 		g.drawImage(activeImage.getGif(), x, y, 150, 150, null);
-		
-		/*
-		g.setColor(Color.white);
-		g.drawString("X: " + x + " Y:" + y, x, y);
-		g.setColor(Color.orange);
-		g.drawRect(x+50, y+70, 50, 75);
-		g.setColor(Color.red);
-		g.drawRect(x+45, y+120, 60, 30);
-		*/
 	}
 
 	@Override
@@ -152,7 +143,7 @@ public class Player extends Entity{
 	}
 	
 	public void defend(int atk) {
-		this.hp-= atk-def;
+		this.hp-= atk/def;
 		if(hp < 0)
 			this.hp = 0;
 	}

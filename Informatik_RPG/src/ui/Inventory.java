@@ -40,11 +40,11 @@ public class Inventory {
 			// zentrieren des Inventorys:
 			g.translate(xOffset, yOffset);
 			
+			g.setColor(Color.black);
+			g.fillRect(-5, -5, size.width+10, size.height+10);
+			
 			g.setColor(new Color(242, 202, 128));
 			g.fillRect(0, 0, size.width, size.height);
-			
-			g.setColor(Color.black);
-			g.drawRect(0, 0, size.width, size.height);
 			
 			g.drawImage(playerImg, 0, 0, 250, 250, null);
 			

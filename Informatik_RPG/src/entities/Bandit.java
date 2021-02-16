@@ -46,7 +46,7 @@ public class Bandit extends Enemy {
 		super(x, y, 140, 140, entityHandler);
 		this.setAnimations(animations);
 		this.hp = 10;
-		this.atk = 10;
+		this.atk = 12;
 		this.def = 2;
 		this.exp = 50;
 		this.velX = this.velY = 1;
@@ -73,7 +73,7 @@ public class Bandit extends Enemy {
 
 	@Override
 	Rectangle viewDistance() {
-		return new Rectangle(x-160, y-150, 550, 500);
+		return new Rectangle(x-300, y-150, 700, 550);
 	}
 
 }

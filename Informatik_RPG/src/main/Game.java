@@ -58,7 +58,6 @@ public class Game extends Canvas implements Runnable{
 		entityHandler.addEntity(new Barrel(40, 640, entityHandler));
 		entityHandler.addEntity(new Barrel(40, 900, entityHandler));
 		
-		entityHandler.addEntity(new Bandit(500, 800, entityHandler));
 		entityHandler.addEntity(new Bandit(1000, 1000, entityHandler));
 		
 		entityHandler.addEntity(new Tree2(400, 850, entityHandler));

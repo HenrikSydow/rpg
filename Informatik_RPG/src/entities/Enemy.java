@@ -24,7 +24,8 @@ public abstract class Enemy extends Entity{
 	
 	private boolean facingDown = false, facingUp = false, facingLeft = false, facingRight = false;
 	
-	private boolean animationsSet = false;
+	private boolean animationsSet = false, moving = false;
+	protected boolean dead = false;
 	
 	private int width, height;
 	
@@ -39,13 +40,14 @@ public abstract class Enemy extends Entity{
 	
 	public void tick() {
 		hpBar.updateHpBar(x, y, hp);
+		moving = false;
 		
 		// überprüfe ob Enemy tot ist
 		if(hp <= 0) {
 			die();
+		} else if (!moving) {
+			stayStill();
 		}
-		
-		stayStill();
 	}
 	
 	public void render(Graphics g) {
@@ -57,21 +59,24 @@ public abstract class Enemy extends Entity{
 	abstract Rectangle viewDistance();
 	
 	protected void attack() {
-		Player player = (Player) entityHandler.getEntityById(ID.Player)[0];
-		if(facingDown) activeAnimation = attackAnimations[0];
-		else if (facingUp) activeAnimation = attackAnimations[1];
-		else if (facingLeft) activeAnimation = attackAnimations[2];
-		else if (facingRight) activeAnimation = attackAnimations[3];
-		
-		if((!activeAnimation.isCounting()) || (activeAnimation.isCounting() && activeAnimation.getLoopCount() >= 1)) {
-			if(hp>0)player.defend(atk);
-			activeAnimation.startLoopCount();
+		if(!dead) {
+			Player player = (Player) entityHandler.getEntityById(ID.Player)[0];
+			if(facingDown) activeAnimation = attackAnimations[0];
+			else if (facingUp) activeAnimation = attackAnimations[1];
+			else if (facingLeft) activeAnimation = attackAnimations[2];
+			else if (facingRight) activeAnimation = attackAnimations[3];
+			
+			if((!activeAnimation.isCounting()) || (activeAnimation.isCounting() && activeAnimation.getLoopCount() >= 1)) {
+				if(hp>0)player.defend(atk);
+				activeAnimation.startLoopCount();
+			}
 		}
 	}
 
 	public void defend(int atk) {
 		hpBar.setVisible();
-		this.hp-= atk-def;
+		if(def<=0) this.hp-= atk;
+		else this.hp-= atk-def;
 		if(hp < 0)
 			this.hp = 0;
 	}
@@ -79,6 +84,7 @@ public abstract class Enemy extends Entity{
 	public void die() {
 		// ändere die animation und lasse sie EINMAL durchlaufen --> hierfür wird die getLoopCount()-Methode
 		// des GifContainers benutzt.
+		dead = true;
 		velX = velY = 0;
 		activeAnimation = deathAnimations[0];
 		if(!deathAnimations[0].isCounting())
@@ -95,6 +101,7 @@ public abstract class Enemy extends Entity{
 		if(!incomingCollision(velX, velY)) {
 			activeAnimation = walkingAnimations[0];
 			y+=velY;
+			moving = true;
 		}
 	}
 	protected void walkUp() {
@@ -102,6 +109,7 @@ public abstract class Enemy extends Entity{
 		if(!incomingCollision(velX, -velY)) {
 			activeAnimation = walkingAnimations[1];
 			y-=velY;
+			moving = true;
 		}
 	}
 	protected void walkLeft() {
@@ -109,6 +117,7 @@ public abstract class Enemy extends Entity{
 		if(!incomingCollision(velX, velY)) {
 			activeAnimation = walkingAnimations[2];
 			x-=velX;
+			moving = true;
 		}
 	}
 	protected void walkRight() {
@@ -116,6 +125,7 @@ public abstract class Enemy extends Entity{
 		if(!incomingCollision(-velX, velY)) {
 			activeAnimation = walkingAnimations[3];
 			x+=velX;
+			moving = true;
 		}
 	}
 	
@@ -128,16 +138,18 @@ public abstract class Enemy extends Entity{
 	
 	//lässt den Enemy in die Richtung des Spielers laufen.
 	protected void trackPlayer() {
-		Player player = (Player) entityHandler.getEntityById(ID.Player)[0];
-		if(this.viewDistance() != null && player.getGroundBounds().intersects(this.viewDistance())) {
-			int distanceX = this.x - player.getX();
-			int distanceY = this.y - player.getY();
-			if(Math.abs(distanceX) > Math.abs(distanceY)) {
-				if(distanceX < 0) walkRight();
-				else if(distanceX > 0) walkLeft();
-			} else {
-				if(distanceY < 0) walkDown();
-				else if(distanceY > 0) walkUp();
+		if(!dead) {
+			Player player = (Player) entityHandler.getEntityById(ID.Player)[0];
+			if(this.viewDistance() != null && player.getGroundBounds().intersects(this.viewDistance())) {
+				int distanceX = this.x - player.getX();
+				int distanceY = this.y - player.getY();
+				if(Math.abs(distanceX) > Math.abs(distanceY)) {
+					if(distanceX < 0) walkRight();
+					else if(distanceX > 0) walkLeft();
+				} else {
+					if(distanceY < 0) walkDown();
+					else if(distanceY > 0) walkUp();
+				}
 			}
 		}
 	}

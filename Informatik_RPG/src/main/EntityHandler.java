@@ -34,6 +34,7 @@ public class EntityHandler {
 		//entferne DANACH alle entities aus toRemove-list, um concurrent modification-error zu vermeiden
 		for(Entity entity : toRemove)
 			entities.remove(entity);
+		toRemove.clear();
 	}
 	
 	public void render(Graphics g) {
@@ -51,6 +52,7 @@ public class EntityHandler {
 		return interceptingEnemies.toArray(new Enemy[interceptingEnemies.size()]);
 	}
 	
+	//Gibt alle Entities mit einer bestimmten ID zurück
 	public Entity[] getEntityById(ID id) {
 		LinkedList<Entity> filteredEntities = new LinkedList<Entity>();
 		for(Entity entity : entities)
