@@ -16,6 +16,9 @@ public class Inventory {
 	private Dimension size = new Dimension(Game.GAME_SIZE.width/4*3, Game.GAME_SIZE.height/4*3);
 	private int xOffset = (Game.GAME_SIZE.width - size.width) / 2, yOffset = (Game.GAME_SIZE.height - size.height) / 2;
 	
+	private int itemSize = size.width/6;
+	private int itemYOffset = 300, itemXOffset = itemSize/2;
+	
 	private Image playerImg = Toolkit.getDefaultToolkit().createImage("res\\player\\standDown.gif");
 	
 	private Player player;
@@ -58,6 +61,11 @@ public class Inventory {
 			g.drawString(String.valueOf(player.getCurrentHp()).concat(" / ".concat(String.valueOf(player.getHp()))), 450, 150);
 			g.drawString(String.valueOf(player.getAtk()), 450, 200);
 			g.drawString(String.valueOf(player.getDef()), 450, 250);
+			
+			//Item-tray
+			for(int i = 0; i < 5; i++) {
+				g.drawRect(itemXOffset+i*itemSize, itemYOffset, itemSize, itemSize);
+			}
 			
 			// g.translate "resetten"
 			g.translate(-xOffset, -yOffset);
