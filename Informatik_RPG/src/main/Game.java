@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferStrategy;
 
 import entities.Bandit;
@@ -62,6 +63,8 @@ public class Game extends Canvas implements Runnable{
 		
 		entityHandler.addEntity(new Tree2(400, 850, entityHandler));
 		entityHandler.addEntity(new Bench(320, 660, entityHandler));
+		
+		entityHandler.spawnEnemies(Bandit.class, 5, new Rectangle(500, 900, 400, 400));
 	}
 	
 	// Gameloop:

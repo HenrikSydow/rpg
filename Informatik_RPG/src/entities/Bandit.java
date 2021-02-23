@@ -46,7 +46,7 @@ public class Bandit extends Enemy {
 		super(x, y, 140, 140, entityHandler);
 		this.setAnimations(animations);
 		this.hp = 10;
-		this.atk = 12;
+		this.atk = 100;
 		this.def = 2;
 		this.exp = 50;
 		this.velX = this.velY = 1;

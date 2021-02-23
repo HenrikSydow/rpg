@@ -52,9 +52,12 @@ public class Inventory {
 			g.setFont(new Font("Arial", Font.BOLD, 50));
 			g.drawString("PLAYER", 300, 75);
 			g.setFont(new Font("Arial", Font.PLAIN, 40));
-			g.drawString("Health: ", 300, 150);
-			g.drawString("Attack: ", 300, 200);
-			g.drawString("Defense: ", 300, 250);
+			g.drawString("Health: ", 250, 150);
+			g.drawString("Attack: ", 250, 200);
+			g.drawString("Defense: ", 250, 250);
+			g.drawString(String.valueOf(player.getCurrentHp()).concat(" / ".concat(String.valueOf(player.getHp()))), 450, 150);
+			g.drawString(String.valueOf(player.getAtk()), 450, 200);
+			g.drawString(String.valueOf(player.getDef()), 450, 250);
 			
 			// g.translate "resetten"
 			g.translate(-xOffset, -yOffset);

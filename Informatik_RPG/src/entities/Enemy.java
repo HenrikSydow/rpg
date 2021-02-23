@@ -7,7 +7,7 @@ import main.EntityHandler;
 import main.GifContainer;
 import main.ID;
 
-public abstract class Enemy extends Entity{
+public abstract class Enemy extends Entity {
 
 	protected int exp = 0, hp = 0, atk = 0, def = 0;
 	

@@ -40,6 +40,10 @@ public class Player extends Entity{
 		new GifContainer(toolkit.createImage("res\\player\\swordSwingDown.gif"), attackMs),
 		new GifContainer(toolkit.createImage("res\\player\\swordSwingUp.gif"), attackMs)
 	};
+	
+	private static GifContainer[] deathAnimations = {
+			new GifContainer(toolkit.createImage("res\\player\\death.gif"), 72)
+	};
 		
 	private GifContainer activeImage;
 	
@@ -49,6 +53,7 @@ public class Player extends Entity{
 	
 	private HpBar hpBar;
 	private int lvl = 1, exp = 0, hp = 35, atk = 7, def = 5;
+	private int currentHp = hp;
 	private int expForLvlUp = 100;
 	private int walkingSpeed = 1, runningSpeed = 2;
 	
@@ -74,15 +79,20 @@ public class Player extends Entity{
 	@Override
 	public void tick() {
 		lvlUp();
-		hpBar.updateHPBar(x, y, hp, exp, lvl);
+		hpBar.updateHPBar(x, y, currentHp, exp, lvl);
 		prepareMovements();
 		
-		if(attacking)
-			attack();
-		else if(walking)
-			walk();
-		else
-			standStill();
+		if(currentHp <= 0) {
+			die();
+		} else {
+			if(attacking)
+				attack();
+			else if(walking)
+				walk();
+			else
+				standStill();
+		}
+		
 	}
 	
 	@Override
@@ -143,9 +153,20 @@ public class Player extends Entity{
 	}
 	
 	public void defend(int atk) {
-		this.hp-= atk/def;
+		this.currentHp-= atk/def;
 		if(hp < 0)
-			this.hp = 0;
+			this.currentHp = 0;
+	}
+	
+	private void die() {
+		activeImage = deathAnimations[0];
+		if(activeImage.getLoopCount() == 0)
+			activeImage.startLoopCount();
+		if(activeImage.getLoopCount() >= 1) {
+			x = y = 10;
+			activeImage = idleAnimations[0];
+			currentHp = hp;
+		}
 	}
 	
 	//legt die Richting fest, in welche der Spieler schaut und bestimmt welche Aktionen ausgeführt werden sollen:
@@ -260,4 +281,62 @@ public class Player extends Entity{
 	public ID getId() {
 		return id;
 	}
+
+	public int getLvl() {
+		return lvl;
+	}
+
+	public void setLvl(int lvl) {
+		this.lvl = lvl;
+	}
+
+	public int getExp() {
+		return exp;
+	}
+
+	public void setExp(int exp) {
+		this.exp = exp;
+	}
+
+	public int getHp() {
+		return hp;
+	}
+
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
+
+	public int getAtk() {
+		return atk;
+	}
+
+	public void setAtk(int atk) {
+		this.atk = atk;
+	}
+
+	public int getDef() {
+		return def;
+	}
+
+	public void setDef(int def) {
+		this.def = def;
+	}
+
+	public int getCurrentHp() {
+		return currentHp;
+	}
+
+	public void setCurrentHp(int currentHp) {
+		this.currentHp = currentHp;
+	}
+
+	public int getExpForLvlUp() {
+		return expForLvlUp;
+	}
+
+	public void setExpForLvlUp(int expForLvlUp) {
+		this.expForLvlUp = expForLvlUp;
+	}
+	
+	
 }

@@ -5,7 +5,10 @@ import java.awt.Rectangle;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.concurrent.ThreadLocalRandom;
 
+import entities.Bandit;
+import entities.CombatDummy;
 import entities.Enemy;
 import entities.Entity;
 import entities.Player;
@@ -75,6 +78,21 @@ public class EntityHandler {
 				}
 			}
 		});
+	}
+	
+	public void spawnEnemies(Class enemyClass, int amount, Rectangle area) {
+		LinkedList<Enemy> enemiesToSpawn = new LinkedList<Enemy>();
+		for(int i = 0; i < amount; i++) {
+			// groundbounds des Enemys müssen noch abgezogen werden, damit er nicht außerhalb des
+			// Rectangles spawnt
+			int x = ThreadLocalRandom.current().nextInt(area.x, area.x+area.width);
+			int y = ThreadLocalRandom.current().nextInt(area.y, area.y+area.height);
+			if(enemyClass.equals(Bandit.class)) entities.add(new Bandit(x, y, this));
+			else if(enemyClass.equals(CombatDummy.class)) entities.add(new CombatDummy(x, y, this));
+		}
+		for(Enemy enemy : enemiesToSpawn) {
+			this.entities.add(enemy);
+		}
 	}
 	
 	// Getters & Setters:
