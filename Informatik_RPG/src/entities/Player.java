@@ -237,7 +237,7 @@ public class Player extends Entity{
 	private boolean incomingCollision(double xVel, double yVel) {
 		Rectangle newGroundBounds = new Rectangle((int)(this.getGroundBounds().x+xVel), (int)(this.getGroundBounds().y+yVel), this.getGroundBounds().width, this.getGroundBounds().height);
 		for(Entity entity : entityHandler.getEntities()) {
-			if(entity.getGroundBounds() != null && entity.id != ID.Player && entity.getGroundBounds().intersects(newGroundBounds)) 
+			if(entity.getGroundBounds() != null && entity.id != ID.Player && entity.id != ID.Item && entity.getGroundBounds().intersects(newGroundBounds)) 
 				return true;
 		}
 		return false;

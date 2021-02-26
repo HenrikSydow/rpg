@@ -64,7 +64,7 @@ public class Game extends Canvas implements Runnable{
 		entityHandler.addEntity(new Tree2(400, 850, entityHandler));
 		entityHandler.addEntity(new Bench(320, 660, entityHandler));
 		
-		entityHandler.spawnEnemies(Bandit.class, 10, new Rectangle(400, 800, 400, 400));
+		//entityHandler.spawnEnemies(Bandit.class, 10, new Rectangle(400, 800, 400, 400));
 	}
 	
 	// Gameloop:

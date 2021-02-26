@@ -5,5 +5,6 @@ public enum ID {
 	Enemy(),
 	HpBar(),
 	Ground(),
-	Structure();
+	Structure(),
+	Item();
 }

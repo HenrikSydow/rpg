@@ -17,9 +17,10 @@ public class EntityHandler {
 	
 	private LinkedList<Entity> entities = new LinkedList<Entity>();
 	private LinkedList<Entity> toRemove = new LinkedList<Entity>();
+	private LinkedList<Entity> toAdd = new LinkedList<Entity>();
 	
 	public void addEntity(Entity entity) {
-		entities.add(entity);
+		toAdd.add(entity);
 	}
 	
 	public void removeEntity(Entity entity) {
@@ -37,7 +38,10 @@ public class EntityHandler {
 		//entferne DANACH alle entities aus toRemove-list, um concurrent modification-error zu vermeiden
 		for(Entity entity : toRemove)
 			entities.remove(entity);
+		for(Entity entity : toAdd)
+			entities.add(entity);
 		toRemove.clear();
+		toAdd.clear();
 	}
 	
 	public void render(Graphics g) {

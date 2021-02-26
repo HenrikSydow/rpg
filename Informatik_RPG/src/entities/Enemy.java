@@ -11,14 +11,14 @@ public abstract class Enemy extends Entity {
 
 	protected int exp = 0, hp = 0, atk = 0, def = 0;
 	
-	private GifContainer[] idleAnimations;
-	private GifContainer[] deathAnimations;
-	private GifContainer[] walkingAnimations;
-	private GifContainer[] attackAnimations;
+	protected GifContainer[] idleAnimations;
+	protected GifContainer[] deathAnimations;
+	protected GifContainer[] walkingAnimations;
+	protected GifContainer[] attackAnimations;
 	
 	protected GifContainer activeAnimation;
 	
-	private HpBar hpBar;
+	protected HpBar hpBar;
 	
 	private Rectangle[] attackHitboxes;
 	
