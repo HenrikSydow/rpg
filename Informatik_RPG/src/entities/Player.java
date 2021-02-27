@@ -56,6 +56,7 @@ public class Player extends Entity{
 	private int currentHp = hp;
 	private int expForLvlUp = 100;
 	private int walkingSpeed = 1, runningSpeed = 2;
+	private int spawnX, spawnY;
 	
 	//----------------------------------------------------------------------------------------------------------------------
 	//----------------------------------------------------------------------------------------------------------------------
@@ -66,6 +67,8 @@ public class Player extends Entity{
 		this.keyHandler = keyHandler;
 		
 		velX = velY = 1;
+		spawnX = x;
+		spawnY = y;
 		
 		facingRight = true;
 		activeImage = idleAnimations[1];
@@ -163,10 +166,15 @@ public class Player extends Entity{
 		if(activeImage.getLoopCount() == 0)
 			activeImage.startLoopCount();
 		if(activeImage.getLoopCount() >= 1) {
-			x = y = 10;
-			activeImage = idleAnimations[0];
-			currentHp = hp;
+			respawn();
 		}
+	}
+	
+	public void respawn() {
+		x = spawnX;
+		y = spawnY;
+		activeImage = idleAnimations[0];
+		currentHp = hp;
 	}
 	
 	//legt die Richting fest, in welche der Spieler schaut und bestimmt welche Aktionen ausgeführt werden sollen:
@@ -338,5 +346,9 @@ public class Player extends Entity{
 		this.expForLvlUp = expForLvlUp;
 	}
 	
+	public void setSpawnLocation(int x, int y) {
+		this.spawnX = x;
+		this.spawnY = y;
+	}
 	
 }

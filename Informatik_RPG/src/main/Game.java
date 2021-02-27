@@ -28,7 +28,7 @@ public class Game extends Canvas implements Runnable{
 	private Thread gameloopThread;
 	private boolean running = false, paused = false;
 	
-	private Player player = new Player(450, 630, entityHandler, keyHandler);
+	private Player player = new Player(850, 1000, entityHandler, keyHandler);
 
 	private Inventory inventory = new Inventory(player, this, keyHandler);
 	
@@ -44,27 +44,25 @@ public class Game extends Canvas implements Runnable{
 		this.addKeyListener(keyHandler);
 		
 		entityHandler.addEntity(new Grass(0, 0, 2000, 2000, entityHandler));
-		entityHandler.addEntity(new House(0,0, entityHandler));
 		entityHandler.addEntity(player);
 		
-		entityHandler.addEntity(new Tree(470, 470, entityHandler));
-		entityHandler.addEntity(new Tree(550, 530, entityHandler));
-		entityHandler.addEntity(new Tree(600, 580, entityHandler));
-		entityHandler.addEntity(new Tree(700, 600, entityHandler));
-		entityHandler.addEntity(new Tree(770, 680, entityHandler));
+		entityHandler.addEntity(new House(600, 400, entityHandler));
 		
-		entityHandler.addEntity(new CombatDummy(615, 700, entityHandler));
+		entityHandler.addEntity(new CombatDummy(700, 1150, entityHandler));
+
+		entityHandler.addEntity(new Barrel(600, 1250, entityHandler));
+		entityHandler.addEntity(new Barrel(650, 1250, entityHandler));
+		entityHandler.addEntity(new Barrel(615, 1280, entityHandler));
 		
-		entityHandler.addEntity(new Barrel(0, 600, entityHandler));
-		entityHandler.addEntity(new Barrel(40, 640, entityHandler));
-		entityHandler.addEntity(new Barrel(40, 900, entityHandler));
+		entityHandler.addEntity(new Bandit(1300, 1300, entityHandler));
 		
-		entityHandler.addEntity(new Bandit(1000, 1000, entityHandler));
-		
-		entityHandler.addEntity(new Tree2(400, 850, entityHandler));
-		entityHandler.addEntity(new Bench(320, 660, entityHandler));
-		
-		//entityHandler.spawnEnemies(Bandit.class, 10, new Rectangle(400, 800, 400, 400));
+		entityHandler.addEntity(new Tree2(550, 980, entityHandler));
+		entityHandler.addEntity(new Tree2(470, 1050, entityHandler));
+		entityHandler.addEntity(new Tree2(520, 1120, entityHandler));
+		entityHandler.addEntity(new Tree2(540, 1190, entityHandler));
+
+		entityHandler.addEntity(new Tree2(1050, 920, entityHandler));
+		entityHandler.addEntity(new Bench(1050, 1080, entityHandler));
 	}
 	
 	// Gameloop:
