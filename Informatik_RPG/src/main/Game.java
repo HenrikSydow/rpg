@@ -40,7 +40,7 @@ public class Game extends Canvas implements Runnable{
 	// initialisiert dieses Game-Object
 	private void init() {
 		this.setSize(GAME_SIZE);
-		new MainFrame("RPG", this);
+		new MainFrame("RPG 0.1", this);
 		this.addKeyListener(keyHandler);
 		
 		entityHandler.addEntity(new Grass(0, 0, 2000, 2000, entityHandler));
