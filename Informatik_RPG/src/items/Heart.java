@@ -19,7 +19,7 @@ public class Heart extends Item {
 	public void tick() {
 		Player player = (Player) entityHandler.getEntityById(ID.Player)[0];
 		if(this.getGroundBounds().intersects(player.getBounds())) {
-			player.defend(-20);
+			player.defend(-35);
 			entityHandler.removeEntity(this);
 		}
 	}
