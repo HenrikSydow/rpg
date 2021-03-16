@@ -161,6 +161,12 @@ public class Player extends Entity{
 			this.currentHp = 0;
 	}
 	
+	public void heal(int extraHp) {
+		currentHp += extraHp;
+		if(currentHp > hp)
+			currentHp = hp;
+	}
+	
 	private void die() {
 		activeImage = deathAnimations[0];
 		if(activeImage.getLoopCount() == 0)
