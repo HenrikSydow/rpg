@@ -3,6 +3,7 @@ package entities;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 
+import items.Heart;
 import main.EntityHandler;
 import main.GifContainer;
 import main.ID;
@@ -60,6 +61,13 @@ public class Bandit extends Enemy {
 		else
 			this.trackPlayer();
 	}
+	
+	public void die() {
+		super.die();
+		entityHandler.addEntity(new Heart(x, y, entityHandler));
+		
+	}
+
 
 	@Override
 	public Rectangle getBounds() {

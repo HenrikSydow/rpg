@@ -181,6 +181,7 @@ public class Player extends Entity{
 		y = spawnY;
 		activeImage = idleAnimations[0];
 		currentHp = hp;
+		lvl = 1;
 	}
 	
 	//legt die Richting fest, in welche der Spieler schaut und bestimmt welche Aktionen ausgeführt werden sollen:

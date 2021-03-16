@@ -14,7 +14,7 @@ import entities.Grass;
 import entities.Player;
 import structures.Bench;
 import structures.House;
-import structures.HouseAlt;
+//import structures.HouseAlt;
 import structures.Tree;
 import structures.Tree2;
 import ui.Inventory;
@@ -48,7 +48,7 @@ public class Game extends Canvas implements Runnable{
 		entityHandler.addEntity(player);
 		
 		entityHandler.addEntity(new House(600, 400, entityHandler));
-		entityHandler.addEntity(new HouseAlt(1200, 400, entityHandler));
+		//entityHandler.addEntity(new HouseAlt(1200, 400, entityHandler));
 		
 		entityHandler.addEntity(new CombatDummy(700, 1150, entityHandler));
 
@@ -56,7 +56,10 @@ public class Game extends Canvas implements Runnable{
 		entityHandler.addEntity(new Barrel(650, 1250, entityHandler));
 		entityHandler.addEntity(new Barrel(615, 1280, entityHandler));
 		
-		entityHandler.addEntity(new Bandit(1300, 1300, entityHandler));
+		for( int i=0; i<10; i++)
+		{
+		entityHandler.addEntity(new Bandit(1300,1200+ i*50, entityHandler));
+		}
 		
 		entityHandler.addEntity(new Tree2(550, 980, entityHandler));
 		entityHandler.addEntity(new Tree2(470, 1050, entityHandler));
