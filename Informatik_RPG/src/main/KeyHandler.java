@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener{
 
-	private boolean w = false, a = false, s = false, d = false, enter = false, space = false, shift = false, i = false;
+	private boolean w = false, a = false, s = false, d = false, enter = false, space = false, shift = false, i = false, escape = false;
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -37,8 +37,10 @@ public class KeyHandler implements KeyListener{
 				shift = true;
 				break;
 			case KeyEvent.VK_I:
-				if(i) i = false;
-				else i = true;
+				i = !i;
+				break;
+			case KeyEvent.VK_ESCAPE:
+				escape = !escape;
 				break;
 		}
 	}
@@ -104,5 +106,8 @@ public class KeyHandler implements KeyListener{
 	
 	public boolean isI() {
 		return i;
+	}
+	public boolean isEscape() {
+		return escape;
 	}
 }

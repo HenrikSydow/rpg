@@ -14,10 +14,11 @@ import entities.Grass;
 import entities.Player;
 import structures.Bench;
 import structures.House;
-//import structures.HouseAlt;
+import structures.HouseAlt;
 import structures.Tree;
 import structures.Tree2;
 import ui.Inventory;
+import ui.Pause;
 
 public class Game extends Canvas implements Runnable{
 
@@ -32,6 +33,7 @@ public class Game extends Canvas implements Runnable{
 	private Player player = new Player(850, 1000, entityHandler, keyHandler);
 
 	private Inventory inventory = new Inventory(player, this, keyHandler);
+	private Pause pause = new Pause(this, keyHandler);
 	
 	public Game() {
 		init();
@@ -48,7 +50,7 @@ public class Game extends Canvas implements Runnable{
 		entityHandler.addEntity(player);
 		
 		entityHandler.addEntity(new House(600, 400, entityHandler));
-		//entityHandler.addEntity(new HouseAlt(1200, 400, entityHandler));
+		entityHandler.addEntity(new HouseAlt(1200, 400, entityHandler));
 		
 		entityHandler.addEntity(new CombatDummy(700, 1150, entityHandler));
 
@@ -108,6 +110,7 @@ public class Game extends Canvas implements Runnable{
 	private void tick() {
 		if(!paused) entityHandler.tick();
 		inventory.tick();
+		pause.tick();
 	}
 	
 	// Zeichnet alle Elemente auf den Canvas
@@ -138,6 +141,7 @@ public class Game extends Canvas implements Runnable{
 		}
 
 		inventory.render(g);
+		pause.render(g);
 		//-------------------------------------------------------------------------------
 		
 		bs.show();
